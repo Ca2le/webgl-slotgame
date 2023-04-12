@@ -12,3 +12,6 @@ const rows = [
     [reels[0][2], reels[1][2], reels[2][2], reels[3][2], reels[4][2]]   // bottom_row
 ];
 
+function getRandomInt(max: number) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
