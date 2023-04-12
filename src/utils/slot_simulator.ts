@@ -1,7 +1,10 @@
-import { Row, Value, Result } from "../types/result.types";
+import { Value, Result } from "../types/global.types";
 import { random } from "lodash"
+
+export const initialState: Result = [["A", "K", "Q"], ["SCATTER", "Q", "10"], ["A", "J", "K"], ["K", "Q", "10"], ["10", "Q", "BONUS"]]
+
 export function generateResult() {
-    const value: Value[] = ['A', 'K', 'Q', 'J', 'SCATTER', 'WILD', 'BONUS']
+    const value: Value[] = ["A", "K", "Q", "J", "SCATTER", "WILD", "BONUS"]
     const result: Value[][] = []
     for (let i = 0; i < 5; i++) {
         const numbers = randomNr()

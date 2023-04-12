@@ -8,3 +8,11 @@ export enum Icons {
     A_Wild = "../assets/asset_7.png",
     A_Bonus = "../assets/asset_8.png",
 }
+
+export type Value = "10" | "J" | "Q"  | "K"  | "A"  | "SCATTER"  | "WILD"  | "BONUS"
+
+export type Result = Value[][]
+
+export interface GameState {
+    result: Result
+}
