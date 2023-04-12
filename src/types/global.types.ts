@@ -16,3 +16,8 @@ export type Result = Value[][]
 export interface GameState {
     result: Result
 }
+
+export interface Action {
+    type: "",
+    payload: ""
+}

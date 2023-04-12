@@ -1,7 +1,7 @@
 import { Value, Result } from "../types/global.types";
 import { random } from "lodash"
 
-export const initialState: Result = [["A", "K", "Q"], ["SCATTER", "Q", "10"], ["A", "J", "K"], ["K", "Q", "10"], ["10", "Q", "BONUS"]]
+export const initialResult: Result = [["A", "K", "Q"], ["SCATTER", "Q", "10"], ["A", "J", "K"], ["K", "Q", "10"], ["10", "Q", "BONUS"]]
 
 export function generateResult() {
     const value: Value[] = ["A", "K", "Q", "J", "SCATTER", "WILD", "BONUS"]
