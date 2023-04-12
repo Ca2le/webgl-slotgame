@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "commit": "git add . && git commit -m"
+    "commit": "git add . && git commit -m $1 && git push"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
