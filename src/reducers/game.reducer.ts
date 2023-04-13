@@ -1,12 +1,13 @@
-import { Action } from "@reduxjs/toolkit"
+
+import { Result } from "../types/global.types"
+import { GameAction } from "../types/reducer.types"
 
 
-export function game(state = 0, action: Action) {
+export function game(state: Result | null = null, action: GameAction) {
     switch (action.type) {
-        case 'INCREMENT':
-            return state + 1
-        case 'DECREMENT':
-            return state - 1
+        case "UPDATE_DATA": {
+            return state = action.payload
+        }
         default:
             return state
     }

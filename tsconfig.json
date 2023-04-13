@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["src", "network/slot_simulator.ts", "network/slot_simulator.ts", "App.styles.ts", "App.styles.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

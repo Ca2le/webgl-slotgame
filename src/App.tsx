@@ -1,18 +1,15 @@
-import { useEffect } from "react"
-import { Container } from "./styles/App.styles"
-import { generateResult } from "./utils/slot_simulator"
-import { Provider } from "react-redux"
 import { store } from "./store/store"
+import { Provider } from "react-redux"
+import { Game } from "./components/game/game.component"
 
 function App() {
-  const result = generateResult()
-  console.log(result)
+
 
   return (
     <Provider store={store}>
-      <Container className="App">
-
-      </Container>
+      <div className="App">
+        <Game />
+      </div>
     </Provider>
   )
 }
