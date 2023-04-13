@@ -1,5 +1,5 @@
 import React from 'react'
-import { useFetchData } from '../../network/useRequest'
+import { useFetchData } from '../../network/useFetchData'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../types/reducer.types'
 
