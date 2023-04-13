@@ -1,18 +1,15 @@
-import React from 'react'
 import { useFetchData } from '../../network/useFetchData'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../types/reducer.types'
+import { ControlBar } from '../controlbar/controlbar.component'
+import { GameContainer } from './game.styles'
 
 export function Game() {
     const { gameData, fetchGameData } = useFetchData()
-    console.log(gameData)
+
     return (
-        <div>
-            <button onClick={() => {
-                fetchGameData()
-            }}>
-                fetch data
-            </button>
-        </div>
+        <GameContainer>
+            <ControlBar />
+            <div />
+
+        </GameContainer >
     )
 }
