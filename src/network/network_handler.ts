@@ -2,7 +2,7 @@ import { Result } from "../types/global.types";
 import { generateResult } from "./slot_simulator";
 
 export class NetworkHandler {
-    private static networkDelay = 1000
+    private static networkDelay = 600
 
     public static getData(): Promise<Result> {
         return NetworkHandler.makePromise(generateResult());

@@ -1,4 +1,3 @@
-import React from "react";
 import { NetworkHandler } from "./network_handler";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../types/reducer.types";
