@@ -1,40 +1,45 @@
 import styled from "styled-components";
 
 export const ControlBarContainer = styled.div`
-
+    height: 2vh;
+    width: 100%;
+    background-color: #1b1b1c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    font-family: 'Passion One', cursive;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
 `
 
 export const GameConfig = styled.div`
-
-`
-
-export const Settings = styled.div`
-
-`
-
-export const AudioVolume = styled.div`
-
-`
-
-export const Information = styled.div`
-
+    gap: 7px;
+    display: flex;
+    margin: 0 0 0 5%;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
 `
 
 export const BalanceBoard = styled.div`
-
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 40%;
+    margin: 0 10%;
 `
 
-export const Balance = styled.p`
-
-`
-export const Bet = styled.p`
-
-`
-
-export const Win = styled.p`
-
+export const BalanceInfo = styled.p`
+font-size: 12px;
+margin: 0 1%;
 `
 
 export const Signature = styled.p`
-
+    text-align: center;
+    font-size: 12px;
+    width: auto;
+    margin: 0 5% 0 0;
 `
+

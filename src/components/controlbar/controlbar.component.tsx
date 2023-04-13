@@ -1,20 +1,24 @@
-import React from 'react'
-import { AudioVolume, Balance, BalanceBoard, Bet, ControlBarContainer, GameConfig, Information, Settings, Signature, Win } from './controlbar.styles'
+import { Icons } from "../../types/icon.types"
+import { Icon } from "../icon/icon.component"
+import { BalanceBoard, BalanceInfo, ControlBarContainer, GameConfig, Signature } from "./controlbar.styles"
 
 export function ControlBar() {
+    const balance = "1,000.00"
+    const bet = "0.2"
+    const win = "0.00"
     return (
         <ControlBarContainer>
             <GameConfig>
-                <Settings />
-                <AudioVolume />
-                <Information />
+                <Icon id="config_icon" path={Icons.config} />
+                <Icon id="audio_on_icon" path={Icons.audio_on} />
+                <Icon id="info_icon" path={Icons.info} />
             </GameConfig>
             <BalanceBoard>
-                <Balance>$1,000.00</Balance>
-                <Bet>$0.2</Bet>
-                <Win>$0.00</Win>
+               <BalanceInfo>{`Balance: $${balance}`}</BalanceInfo>
+                <BalanceInfo>{`Bet: $${bet}`}</BalanceInfo>
+                <BalanceInfo>{`Win: $${win}`}</BalanceInfo>
             </BalanceBoard>
-            <Signature>Game Created by Ca2le</Signature>
+            <Signature>Created by Ca2le</Signature>
         </ControlBarContainer>
     )
 }
