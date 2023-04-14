@@ -1,5 +1,3 @@
-
-import { Result } from "../types/global.types"
 import { AssetStore, AssetAction } from "../types/reducer.types"
 
 

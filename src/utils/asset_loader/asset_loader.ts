@@ -12,18 +12,16 @@ import asset_8_img from "../../assets/asset_8.png"
 
 export async function loadAssets() {
    try {
-      const asset_1 = await Assets.load<Texture>(asset_1_img);
-      const asset_2 = await Assets.load<Texture>(asset_2_img);
-      const asset_3 = await Assets.load<Texture>(asset_3_img);
-      const asset_4 = await Assets.load<Texture>(asset_4_img);
-      const asset_5 = await Assets.load<Texture>(asset_5_img);
-      const asset_6 = await Assets.load<Texture>(asset_6_img);
-      const asset_7 = await Assets.load<Texture>(asset_7_img);
-      const asset_8 = await Assets.load<Texture>(asset_8_img);
+      await Assets.load<Texture>(asset_1_img);
+      await Assets.load<Texture>(asset_2_img);
+      await Assets.load<Texture>(asset_3_img);
+      await Assets.load<Texture>(asset_4_img);
+      await Assets.load<Texture>(asset_5_img);
+      await Assets.load<Texture>(asset_6_img);
+      await Assets.load<Texture>(asset_7_img);
+      await Assets.load<Texture>(asset_8_img);
+      return true
 
-      const assets = [asset_1, asset_2, asset_3, asset_4, asset_5, asset_6, asset_7, asset_8,]
-
-      return assets
    } catch (err) {
       console.error("🧟Failed to load assets: ", err);
    }
