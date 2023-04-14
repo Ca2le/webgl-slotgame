@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { game } from "../reducers/game.reducer";
-import { isLoading } from "../reducers/isLoading.reducer";
+import { isLoading } from "../reducers/is_loading.reducer";
 
 
 export const rootReducer = combineReducers({

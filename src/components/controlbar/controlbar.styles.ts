@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ControlBarContainer = styled.div`
-    height: 2vh;
+    height: 1.2rem;
     width: 100%;
     background-color: #1b1b1c;
     color: #fff;
@@ -12,6 +12,7 @@ export const ControlBarContainer = styled.div`
     font-family: 'Passion One', cursive;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
+    font-size: 11px;
 `
 
 export const GameConfig = styled.div`
@@ -32,13 +33,12 @@ export const BalanceBoard = styled.div`
 `
 
 export const BalanceInfo = styled.p`
-font-size: 12px;
+
 margin: 0 1%;
 `
 
 export const Signature = styled.p`
     text-align: center;
-    font-size: 12px;
     width: auto;
     margin: 0 5% 0 0;
 `
