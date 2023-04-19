@@ -25,15 +25,18 @@ export function GameCanvas({ screenSize }: ScreenSize) {
 
         const gameContainer = new Container()
         const UIContainer = createGameInterface(memoFetch)
-        const gridContainer = createSpriteGrid(initialResult)
-        const mask = createMask(screenSize.width, screenSize.height * 0.8)
-
-        gridContainer.mask = mask
-        // Apperantly I need the mask to also be a child of the parent to adjust scale
-        gridContainer.addChild(mask)
-
-        gameContainer.addChild(UIContainer)
+        const gridContainer = new Container()
+        gridContainer.name = "gridContainer"
+        // const maskContainer = createMask(100, 100)
+        const spriteContainer = createSpriteGrid(initialResult)
+        // 1.)
+        
+        // gridContainer.addChild(maskContainer)
+        gridContainer.addChild(spriteContainer)
+        // 2.)
         gameContainer.addChild(gridContainer)
+        gameContainer.addChild(UIContainer)
+
         return gameContainer
 
     }
@@ -56,36 +59,47 @@ export function GameCanvas({ screenSize }: ScreenSize) {
     }, [memorizedApp])
 
     useEffect(() => {
+
+        // SCREEN WIDTH = 1000 px
+        // SCREEN HEIGHT = 600 px
+
         if (memorizedApp) {
             const gameContainer = memorizedApp.stage.getChildAt(0) as Container<DisplayObject>;
             const gridContainer = gameContainer.getChildByName("gridContainer") as Container<DisplayObject>
+            const spriteContainer = gridContainer.getChildByName("spriteContainer") as Container<DisplayObject>
             const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
-            // const maskGraph = gridContainer.mask as Graphics
+            // const maskContainer = gridContainer.getChildByName("maskContainer") as Container<DisplayObject>
+            console.log(gridContainer)
+
 
             const canvasWidth = memorizedApp.view.width;
             const canvasHeight = memorizedApp.view.height;
-            // CANVAS ADJUSTMENT 
+            // GAME CONTAINER ADJUSTMENT 
             memorizedApp.view.width = screenSize.width
             memorizedApp.view.height = screenSize.height
             memorizedApp.screen.width = screenSize.width
             memorizedApp.screen.height = screenSize.height
 
-            // SLOT SYMBOL GRID ADJUSTMENT 
-            const gridWidth = screenSize.width * 0.8
-            const gridHeight = screenSize.height * 1.8
-            gridContainer.width = gridWidth
-            gridContainer.height = gridHeight
-            gridContainer.position.set((canvasWidth - gridContainer.width) / 2, (canvasHeight - gridContainer.height) / 2.4)
+            // GRID CONTAINER ADJUSTMENT
+            gridContainer.width = screenSize.width
+            gridContainer.height = screenSize.height
 
 
-            // UI BAR ADJUSTMENT 
+            // SPRITE CONTAINER ADJUSTMENT 
+            const gridWidth = screenSize.width
+            const gridHeight = screenSize.height 
+            spriteContainer.width = gridWidth
+            spriteContainer.height = gridHeight
+            spriteContainer.position.set((canvasWidth - spriteContainer.width) / 2, (canvasHeight - spriteContainer.height) / 2.4)
+
+            // UI CONTAINER ADJUSTMENT 
             UIContainer.position.set((canvasWidth - UIContainer.width) / 2, canvasHeight - UIContainer.height);
 
             // console.log(maskGraph)
             // MASK ADJUSTMENT 
-            // maskGraph.width = 1
-            // maskGraph.height = screenSize.height * 0.8
-            // maskGraph.position.set((canvasWidth - gridContainer.width) / 2, (canvasHeight - gridContainer.height) / 2.4)
+            // maskContainer.width = 1
+            // maskContainer.height = screenSize.height * 0.8
+            // maskContainer.position.set((canvasWidth - maskContainer.width) / 2, (canvasHeight - maskContainer.height) / 2.4)
         }
 
 
@@ -155,11 +169,16 @@ function makeReelsSpin(app: Application<HTMLCanvasElement>) {
     }
 }
 
-function createMask(width:number, height:number) {
-    const mask = new Graphics();
-    mask.name = "mask"
-    mask.beginFill(0xffffff);
-    mask.drawRect(0, 0, width, height);
-    mask.endFill();
-    return mask
+function createMask(width: number, height: number) {
+    //Creating a container > Setting its mask to created graph > Returning container
+    const container = new Container();
+    container.name = "maskContainer"
+    const graph = new Graphics();
+    graph.name = "graph"
+    graph.beginFill(0xffffff);
+    graph.drawRect(0, 0, width, height);
+    graph.endFill();
+    container.mask = graph
+
+    return container
 }

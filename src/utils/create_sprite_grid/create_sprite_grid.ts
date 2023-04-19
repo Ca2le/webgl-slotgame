@@ -3,7 +3,7 @@ import { Result, SpriteGrid } from "../../types/global.types";
 
 export function createSpriteGrid(result: Result) {
     const gridContainer = new Container()
-    gridContainer.name = 'gridContainer'
+    gridContainer.name = 'spriteContainer'
     result.forEach((reel, i) => {
         const reelContainer = new Container()
         reel.forEach((item, index) => {

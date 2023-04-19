@@ -7,18 +7,18 @@ import { GameDimensions } from '../../types/global.types';
 
 export function Game() {
     const initialSize = {
-        width: window.innerWidth* 0.8,
-        height: window.innerWidth * GameDimensions.aspectRatio * 0.8
+        width: 1000,
+        height: 600
     }
     const [screenSize, setScreenSize] = useState(initialSize);
 
     useEffect(() => {
         function handleResize() {
             const currWindowWidth = window.innerWidth
-                setScreenSize({
-                    width: (currWindowWidth) * 0.8,
-                    height: (currWindowWidth * GameDimensions.aspectRatio) * 0.8
-                });
+            setScreenSize({
+                width: 1000,
+                height: 600
+            });
         }
         window.addEventListener('resize', handleResize);
 
