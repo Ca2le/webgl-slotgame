@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import { GameDimensions, ScreenSize } from "../../types/global.types";
 
+interface ScreenSizeProps {
+    screenSize: {
+        width: number,
+        height: number
+    }
+}
 
-
-export const GameContainer = styled.div<ScreenSize>`
+export const GameContainer = styled.div<ScreenSizeProps>`
 background-color: aqua;
     height:  ${props => props.screenSize.height}px;
     width: ${props => props.screenSize.width}px;

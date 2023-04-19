@@ -27,10 +27,28 @@ export interface Action {
 }
 
 export interface ScreenSize {
-    screenSize: {
-        height: number,
-        width: number
+    fullView: {
+        readonly width: number,
+        readonly height: number
+    },
+    maskSize: {
+        readonly width: number,
+        readonly height: number
+    },
+    gridSize: {
+        readonly width: number,
+        readonly height: number
+    },
+    UI_Size: {
+        readonly width: number,
+        readonly height: number
+    },
+    symbolSize: {
+        readonly width: number,
+        readonly height: number
     }
+
+
 }
 
 export enum GameDimensions {
@@ -39,5 +57,28 @@ export enum GameDimensions {
     maxHeight = maxWidth * aspectRatio,
     minWidth = 500,
     minHeight = minWidth * aspectRatio,
-    
+
 }
+
+
+// const initialSize = {
+//     fullView: {
+//         width: 1000,
+//         height: 600
+//     },
+//     // 100px * 5 symbols = 500 width
+//     // 100px * 3 symbols = 300 height = 3 symbols showing
+//     gridMask: {
+//         width: 500,
+//         height: 300
+//     },
+//     // 100px * 8 symbols = 800 height
+//     // 100px * 5 symbols = 500 width
+//     gridContainer: {
+//         width: 500,
+//         height: 800
+//     },
+//     UIContainer: {
+//         width: 1000,
+//         height: 100
+//     }

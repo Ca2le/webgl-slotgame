@@ -2,16 +2,26 @@ import { Application, Container, DisplayObject, Graphics, MaskData } from "pixi.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Result, ScreenSize } from "../../types/global.types";
 import { useData } from "../../network/useFetchData";
-import { createSpriteGrid } from "../../utils/create_sprite_grid/create_sprite_grid";
+import { createGrid } from "../../utils/create_sprite_grid/create_sprite_grid";
 import { createGameInterface } from "../../utils/create_game_interface/create_game_interface";
 import { spriteList } from "../../const/const";
 
-export function GameCanvas({ screenSize }: ScreenSize) {
+interface GameCanvasProps {
+    screenSize: ScreenSize
+}
+interface Size {
+    readonly width: number,
+    readonly height: number
+}
+
+export function GameCanvas({ screenSize }: GameCanvasProps) {
+    const { fullView, maskSize, gridSize, UI_Size, symbolSize } = screenSize
+
     const { gameData, fetchNewData, isLoading } = useData()
     const memoFetch = useCallback(() => {
         return fetchNewData();
     }, [fetchNewData]);
-
+    console.log(isLoading)
     const ref = useRef<HTMLDivElement>(null)
 
     const createContent = () => {
@@ -19,36 +29,31 @@ export function GameCanvas({ screenSize }: ScreenSize) {
             ["K", "K", "K", "K", "K", "K", "K", "K"],
             ["K", "K", "K", "K", "K", "K", "K", "K"],
             ["K", "K", "K", "K", "K", "K", "K", "K"],
-            ["K", "K", "K", "K", "K", "K", "K", "K"],
+            ["K", "K", "K", "K", "K", "K", "K", "WILD"],
             ["K", "K", "K", "K", "K", "K", "K", "K"]
         ] as Result
 
-        const gameContainer = new Container()
+        const gameContainer = createContainer(fullView.height, fullView.width, "gameContainer")
         const UIContainer = createGameInterface(memoFetch)
-        const gridContainer = new Container()
-        gridContainer.name = "gridContainer"
-        // const maskContainer = createMask(100, 100)
-        const spriteContainer = createSpriteGrid(initialResult)
-        // 1.)
-        
-        // gridContainer.addChild(maskContainer)
-        gridContainer.addChild(spriteContainer)
-        // 2.)
-        gameContainer.addChild(gridContainer)
+        const maskContainer = createContainer(fullView.width, gridSize.height, "maskContainer")
+        const maskGraph = createMask(gridSize, symbolSize, fullView)
+        const gridContainer = createGrid(fullView, initialResult, symbolSize)
+        maskContainer.mask = maskGraph
+        // console.log(maskGraph)
+        gameContainer.addChild(maskContainer)
         gameContainer.addChild(UIContainer)
-
+        maskContainer.addChild(gridContainer)
+        // console.log(maskContainer)
         return gameContainer
-
     }
 
     const memorizedApp = useMemo(() => {
-        const app = new Application<HTMLCanvasElement>({ backgroundAlpha: 0.2 })
+        const app = new Application<HTMLCanvasElement>({ width: fullView.width, height: fullView.height, backgroundAlpha: 0.2 })
         const container = createContent()
         app.stage.addChild(container)
 
         return app
     }, [])
-
 
     useEffect(() => {
         const element = ref.current
@@ -58,127 +63,68 @@ export function GameCanvas({ screenSize }: ScreenSize) {
         }
     }, [memorizedApp])
 
-    useEffect(() => {
-
-        // SCREEN WIDTH = 1000 px
-        // SCREEN HEIGHT = 600 px
-
-        if (memorizedApp) {
-            const gameContainer = memorizedApp.stage.getChildAt(0) as Container<DisplayObject>;
-            const gridContainer = gameContainer.getChildByName("gridContainer") as Container<DisplayObject>
-            const spriteContainer = gridContainer.getChildByName("spriteContainer") as Container<DisplayObject>
-            const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
-            // const maskContainer = gridContainer.getChildByName("maskContainer") as Container<DisplayObject>
-            console.log(gridContainer)
-
-
-            const canvasWidth = memorizedApp.view.width;
-            const canvasHeight = memorizedApp.view.height;
-            // GAME CONTAINER ADJUSTMENT 
-            memorizedApp.view.width = screenSize.width
-            memorizedApp.view.height = screenSize.height
-            memorizedApp.screen.width = screenSize.width
-            memorizedApp.screen.height = screenSize.height
-
-            // GRID CONTAINER ADJUSTMENT
-            gridContainer.width = screenSize.width
-            gridContainer.height = screenSize.height
-
-
-            // SPRITE CONTAINER ADJUSTMENT 
-            const gridWidth = screenSize.width
-            const gridHeight = screenSize.height 
-            spriteContainer.width = gridWidth
-            spriteContainer.height = gridHeight
-            spriteContainer.position.set((canvasWidth - spriteContainer.width) / 2, (canvasHeight - spriteContainer.height) / 2.4)
-
-            // UI CONTAINER ADJUSTMENT 
-            UIContainer.position.set((canvasWidth - UIContainer.width) / 2, canvasHeight - UIContainer.height);
-
-            // console.log(maskGraph)
-            // MASK ADJUSTMENT 
-            // maskContainer.width = 1
-            // maskContainer.height = screenSize.height * 0.8
-            // maskContainer.position.set((canvasWidth - maskContainer.width) / 2, (canvasHeight - maskContainer.height) / 2.4)
-        }
-
-
-
-    }, [screenSize, memorizedApp])
 
     useEffect(() => {
         if (memorizedApp) {
             if (isLoading) {
-                makeReelsSpin(memorizedApp)
+                makeReelsSpin(memorizedApp, fullView)
             }
-
         }
-
     }, [isLoading])
-
-    // 🔥🔥🔥 DONTE REMOVE THIS 🔥🔥🔥
-    // useEffect(() => {
-    //     if (gameData) {
-    //         const gameContainer = memorizedApp.stage.getChildAt(0) as Container<DisplayObject>;
-    //         const gridContainer = gameContainer.getChildByName("gridContainer") as Container<DisplayObject>
-    //         gameContainer.removeChild(gridContainer)
-    //         const newGridContainer = createSpriteGrid(gameData)
-    //         newGridContainer.name = "gridContainer"
-
-
-    //         const canvasWidth = memorizedApp.view.width;
-    //         const canvasHeight = memorizedApp.view.height;
-    //         const gridWidth = screenSize.width * 0.7
-    //         const gridHeight = screenSize.height * 0.7
-    //         newGridContainer.width = gridWidth
-    //         newGridContainer.height = gridHeight
-    //         newGridContainer.position.set((canvasWidth - newGridContainer.width) / 2, (canvasHeight - newGridContainer.height) / 2.4)
-
-    //         gameContainer.addChild(newGridContainer)
-
-    //     }
-    // }, [gameData])
 
     return <div style={{ height: "100%", width: "auto" }} ref={ref} />
 }
 
-
-function makeReelsSpin(app: Application<HTMLCanvasElement>) {
-    let speed = 15;
+function makeReelsSpin(app: Application<HTMLCanvasElement>, fullView: { width: number, height: number }) {
+    
+    let speed = 17;
     let gravity = 1
     let isGoingDown = false;
 
     const gameContainer = app.stage.getChildAt(0) as Container<DisplayObject>;
-    const gridContainer = gameContainer.getChildByName("gridContainer") as Container<DisplayObject>;
-
+    const maskContainer = gameContainer.getChildByName("maskContainer") as Container<DisplayObject>;
+    const gridContainer = maskContainer.getChildByName("gridContainer") as Container<DisplayObject>;
+    let shouldLoop = fullView.height
+    console.log()
     if (gridContainer) {
 
         app.ticker.add((delta) => {
-
             if (gridContainer.position.y > -50 && isGoingDown === false) {
                 gravity += 2
                 gridContainer.position.y -= (speed - gravity)
-                if (gridContainer.position.y < -30) {
+                if (gridContainer.position.y < -50) {
                     isGoingDown = true
                 }
 
             } else {
-                gridContainer.position.y += speed
+                gridContainer.position.y += speed * delta
+                if (gridContainer.position.y > shouldLoop) {
+                    gridContainer.position.y = -1185
+                }
             }
         })
     }
 }
 
-function createMask(width: number, height: number) {
-    //Creating a container > Setting its mask to created graph > Returning container
-    const container = new Container();
-    container.name = "maskContainer"
-    const graph = new Graphics();
-    graph.name = "graph"
-    graph.beginFill(0xffffff);
-    graph.drawRect(0, 0, width, height);
-    graph.endFill();
-    container.mask = graph
+function createMask(gridSize: Size, symbolSize: Size, fullView: Size) {
+    // const leftMargin = (fullView.width - (symbolSize.width * 5)) / 2
+    const maskHeight = symbolSize.height * 3
+    const heightMargin = (fullView.height - maskHeight) / 2
 
+    // const heightMargin = viewSize.height / 6
+    const graph = new Graphics();
+    graph.name = "maskGraph"
+    graph.beginFill(0xffffff);
+    graph.drawRect(0, heightMargin, fullView.width, maskHeight);
+    graph.endFill();
+    return graph
+}
+
+function createContainer(height: number, width: number, name: string) {
+    const container = new Container()
+    container.name = name
+    container.width = width
+    container.height = height
     return container
+
 }
