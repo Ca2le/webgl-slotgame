@@ -29,6 +29,9 @@ export function GameCanvas({ screenSize }: ScreenSize) {
         const mask = createMask(screenSize.width, screenSize.height * 0.8)
 
         gridContainer.mask = mask
+        // Apperantly I need the mask to also be a child of the parent to adjust scale
+        gridContainer.addChild(mask)
+
         gameContainer.addChild(UIContainer)
         gameContainer.addChild(gridContainer)
         return gameContainer
@@ -57,7 +60,7 @@ export function GameCanvas({ screenSize }: ScreenSize) {
             const gameContainer = memorizedApp.stage.getChildAt(0) as Container<DisplayObject>;
             const gridContainer = gameContainer.getChildByName("gridContainer") as Container<DisplayObject>
             const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
-            const maskGraph = gridContainer.mask as Graphics
+            // const maskGraph = gridContainer.mask as Graphics
 
             const canvasWidth = memorizedApp.view.width;
             const canvasHeight = memorizedApp.view.height;
@@ -78,9 +81,9 @@ export function GameCanvas({ screenSize }: ScreenSize) {
             // UI BAR ADJUSTMENT 
             UIContainer.position.set((canvasWidth - UIContainer.width) / 2, canvasHeight - UIContainer.height);
 
-            console.log(maskGraph)
+            // console.log(maskGraph)
             // MASK ADJUSTMENT 
-            maskGraph.width = 1
+            // maskGraph.width = 1
             // maskGraph.height = screenSize.height * 0.8
             // maskGraph.position.set((canvasWidth - gridContainer.width) / 2, (canvasHeight - gridContainer.height) / 2.4)
         }
