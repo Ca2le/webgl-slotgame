@@ -1,3 +1,5 @@
+import { Sprite } from "pixi.js"
+
 export enum Icons {
     A_10 = "../assets/asset_1.png",
     A_J = "../assets/asset_2.png",
@@ -9,9 +11,11 @@ export enum Icons {
     A_Bonus = "../assets/asset_8.png",
 }
 
-export type Value = "10" | "J" | "Q"  | "K"  | "A"  | "SCATTER"  | "WILD"  | "BONUS"
+export type Value = "10" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS"
 
 export type Result = Value[][]
+
+export type SpriteGrid = Sprite[][]
 
 export interface GameState {
     result: Result
@@ -20,4 +24,20 @@ export interface GameState {
 export interface Action {
     type: "",
     payload: ""
+}
+
+export interface ScreenSize {
+    screenSize: {
+        height: number,
+        width: number
+    }
+}
+
+export enum GameDimensions {
+    aspectRatio = 8 / 10,
+    maxWidth = 1000,
+    maxHeight = maxWidth * aspectRatio,
+    minWidth = 500,
+    minHeight = minWidth * aspectRatio,
+    
 }
