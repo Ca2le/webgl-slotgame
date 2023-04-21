@@ -1,7 +1,7 @@
 import { Game } from "./components/game/game.component"
 import { Container } from "./styles/App.styles"
 import { useEffect, useState } from "react"
-import { loadAssets } from "./utils/asset_loader/asset_loader"
+import { loadAssets } from "./utils/asset_loader/asset_loader.utils"
 
 interface Loader {
   loadingBar: number;

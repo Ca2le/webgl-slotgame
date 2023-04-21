@@ -60,25 +60,6 @@ export enum GameDimensions {
 
 }
 
-
-// const initialSize = {
-//     fullView: {
-//         width: 1000,
-//         height: 600
-//     },
-//     // 100px * 5 symbols = 500 width
-//     // 100px * 3 symbols = 300 height = 3 symbols showing
-//     gridMask: {
-//         width: 500,
-//         height: 300
-//     },
-//     // 100px * 8 symbols = 800 height
-//     // 100px * 5 symbols = 500 width
-//     gridContainer: {
-//         width: 500,
-//         height: 800
-//     },
-//     UIContainer: {
-//         width: 1000,
-//         height: 100
-//     }
+export interface MakeReelsSpinProps {
+    
+}

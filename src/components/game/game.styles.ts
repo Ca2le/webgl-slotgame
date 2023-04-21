@@ -1,17 +1,13 @@
 import styled from "styled-components";
 import { GameDimensions, ScreenSize } from "../../types/global.types";
+import { store } from "../../store/store";
 
-interface ScreenSizeProps {
-    screenSize: {
-        width: number,
-        height: number
-    }
-}
+const screen = store.getState().screenSize
 
-export const GameContainer = styled.div<ScreenSizeProps>`
+export const GameContainer = styled.div`
 background-color: aqua;
-    height:  ${props => props.screenSize.height}px;
-    width: ${props => props.screenSize.width}px;
+    height:  ${screen.fullView.height}px;
+    width: ${screen.fullView.width}px;
     position: relative;
     top: 50%;
     left: 50%;

@@ -1,21 +1,19 @@
 import { Texture } from "pixi.js";
-import { Result } from "./global.types";
+import { Result, ScreenSize } from "./global.types";
+import { GameStatus } from "../network/slot_simulator";
 
 export type RootState = {
-    game: Result | null;
-    isLoading: boolean;
+    game: GameStatus;
+    screenSize: ScreenSize;
 }
 
 export type GameAction = {
     type: string,
-    payload: Result
+    payload: GameStatus
 }
 
-export type AssetStore = {
-    imageAssets: Texture[];
-}
 
-export type AssetAction = {
+export type ScreenAction = {
     type: string,
-    payload: Texture[]
+    payload: ScreenSize
 }

@@ -1,10 +1,10 @@
 import { Result } from "../types/global.types";
-import { generateResult } from "./slot_simulator";
+import { GameStatus, generateResult } from "./slot_simulator";
 
 export class NetworkHandler {
     private static networkDelay = 600
 
-    public static getData(): Promise<Result> {
+    public static getData(): Promise<GameStatus> {
         return NetworkHandler.makePromise(generateResult());
     }
 
