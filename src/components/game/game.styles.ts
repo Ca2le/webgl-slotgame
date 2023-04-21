@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import { GameDimensions, ScreenSize } from "../../types/global.types";
+import { store } from "../../store/store";
+
+const screen = store.getState().screenSize
 
 export const GameContainer = styled.div`
-    max-width: 1000px;
+background-color: aqua;
+    height:  ${screen.fullView.height}px;
+    width: ${screen.fullView.width}px;
     position: relative;
-    height: 50vh;
-    min-height: 600px;
-    width: 80%;
-    background-color: rgba(0,0,0,0.2);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

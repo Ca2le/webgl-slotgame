@@ -1,7 +1,7 @@
 import { Game } from "./components/game/game.component"
 import { Container } from "./styles/App.styles"
 import { useEffect, useState } from "react"
-import { loadAssets } from "./utils/asset_loader/asset_loader"
+import { loadAssets } from "./utils/asset_loader/asset_loader.utils"
 
 interface Loader {
   loadingBar: number;
@@ -12,7 +12,6 @@ function App() {
   const [loader, setLoader] = useState<Loader>({ loadingStatus: "", loadingBar: 0 });
 
   useEffect(() => {
-
     if (loader.loadingBar === 0) {
       setLoader({ loadingBar: 10, loadingStatus: "Loading game assets..." });
       (async () => {
@@ -24,14 +23,19 @@ function App() {
     }
   }, [])
 
-
-  return (
-
-    <Container className="App">
-      <Game />
-    </Container>
-
-  )
+  if (loader.loadingBar === 100) {
+    return (
+      <Container className="App">
+        <Game />
+      </Container>
+    )
+  } else {
+    return <div>
+      <h1>{loader.loadingStatus}</h1>
+    </div>
+  }
 }
+
+
 
 export default App

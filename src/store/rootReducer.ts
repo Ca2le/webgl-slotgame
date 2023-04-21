@@ -1,12 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { game } from "../reducers/game.reducer";
-import { isLoading } from "../reducers/is_loading.reducer";
+import { screenSize } from "../reducers/screen_size.reducer";
 
 
 export const rootReducer = combineReducers({
     // language: language.reducer,
-    // sound: sound.reducer,
     game,
-    isLoading
+    screenSize
     // settings: settings.reducer,
 })
