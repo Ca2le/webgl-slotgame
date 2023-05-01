@@ -12,7 +12,7 @@ export function createCenterSprite(imgIcon: Assets) {
   const glowOptions = { color: 0xffffff }
   const glow = new GlowFilter(glowOptions)
   glow.enabled = false
-  const sprite = new Sprite(utils.TextureCache[`/src/assets/${imgIcon}.png`]);
+  const sprite = new Sprite(utils.TextureCache[`./assets/${imgIcon}.png`]);
   sprite.name = imgIcon
   sprite.eventMode = "static"
   sprite.alpha = 1;

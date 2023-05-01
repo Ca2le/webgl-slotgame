@@ -60,7 +60,7 @@ function createSpriteSymbol(imgName: Value) {
 
     const { symbol } = store.getState().screenSize
     const margin = (symbol.fullSize - symbol.spriteSize) / 2
-    const sprite = new Sprite(utils.TextureCache[`/src/assets/${imgName}.png`]);
+    const sprite = new Sprite(utils.TextureCache[`./assets/${imgName}.png`]);
     sprite.name = "sprite"
     sprite.alpha = 1
     sprite.zIndex = 2
@@ -98,7 +98,7 @@ export function createRadianceContainer(imgName: string) {
     radianceContainer.name = "radianceContainer"
     radianceContainer.width = 150
     radianceContainer.height = 150
-    const radiance = new Sprite(utils.TextureCache[`/src/assets/RADIANCE.png`])
+    const radiance = new Sprite(utils.TextureCache[`./assets/RADIANCE.png`])
     radiance.anchor.set(0.5)
     radiance.name = "radiance"
 

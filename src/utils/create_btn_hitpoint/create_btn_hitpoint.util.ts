@@ -5,7 +5,7 @@ import { store } from "../../store/store";
 export function createBtn(asset: Assets, actionType: string) {
     const container = new Container()
     container.name = `${asset}Container`
-    const sprite = new Sprite(utils.TextureCache[`/src/assets/${asset}.png`]);
+    const sprite = new Sprite(utils.TextureCache[`./assets/${asset}.png`]);
     sprite.name = asset
     const radius = sprite.width / 2
     const graphics = new Graphics();
