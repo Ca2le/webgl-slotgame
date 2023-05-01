@@ -1,7 +1,7 @@
 import { GameStatus } from "../../network/slot_simulator"
 import { store } from "../../store/store"
 import { Result } from "../../types/global.types"
-import { updateUI } from "../update_economy/update_economy.util"
+import { updateUI } from "../update_ui/update_ui"
 
 export const gameController = async<T>(fetchNewData: () => Promise<GameStatus | undefined>, bet?: string) => {
     if (bet) {

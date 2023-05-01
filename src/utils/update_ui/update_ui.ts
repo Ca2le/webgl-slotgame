@@ -11,14 +11,11 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
     const { loading, autobet, gameEconomy } = store.getState()
     const { coins, bet, coinValue } = gameEconomy
     const { autoLoading, numbersOfBets } = autobet
-
     const gameContainer = app.stage.getChildByName("gameContainer") as Container<DisplayObject>
     const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
-
     const rightContainer = UIContainer.getChildByName("rightContainer") as Container<DisplayObject>
     const centerContainer = UIContainer.getChildByName("centerContainer") as Container<DisplayObject>
     const leftContainer = UIContainer.getChildByName("leftContainer") as Container<DisplayObject>
-
     const settingsContainer = leftContainer.getChildByName("settingsContainer") as Container<DisplayObject>
     const betValueContainer = leftContainer.getChildByName("displayContainer") as Container<DisplayObject>
     const coinValueCointainer = rightContainer.getChildAt(0) as Container<DisplayObject>
@@ -33,7 +30,6 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
         coinCointainer.addChild(newCoins)
         oldCoins?.destroy()
     }
-
 
     switch (input) {
         case "coins_remove": {
@@ -62,10 +58,10 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
             break
         }
         case "loading_status": {
-  
+
             const dec_bet_btn = betValueContainer.getChildByName("DECREMENTContainer") as Container<DisplayObject>
             const inc_bet_btn = betValueContainer.getChildByName("INCREMENTContainer") as Container<DisplayObject>
-          
+
             const dec_bet_hitarea = dec_bet_btn.getChildByName("DECREMENTHitArea") as Graphics
             const inc_bet_hitarea = inc_bet_btn.getChildByName("INCREMENTHitArea") as Graphics
 
@@ -126,35 +122,36 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
                 return
             }
             if (!loading.status) {
+                if (!autoLoading) {
+                    anvil_1_hitarea.interactive = true
+                    anvil_1_hitAreaContainer.alpha = 1
+                    anvil_1_sprite.alpha = 1
+                    anvil_1_filter.alpha = 1
 
-                anvil_1_hitarea.interactive = true
-                anvil_1_hitAreaContainer.alpha = 1
-                anvil_1_sprite.alpha = 1
-                anvil_1_filter.alpha = 1
+                    anvil_2_hitarea.interactive = true
+                    anvil_2_hitAreaContainer.alpha = 1
+                    anvil_2_sprite.alpha = 1
+                    anvil_2_filter.alpha = 1
 
-                anvil_2_hitarea.interactive = true
-                anvil_2_hitAreaContainer.alpha = 1
-                anvil_2_sprite.alpha = 1
-                anvil_2_filter.alpha = 1
+                    shield_hitarea.interactive = true
+                    shield_hitAreaContainer.alpha = 1
+                    shield_sprite.alpha = 1
+                    shield_filter.alpha = 1
 
-                shield_hitarea.interactive = true
-                shield_hitAreaContainer.alpha = 1
-                shield_sprite.alpha = 1
-                shield_filter.alpha = 1
+                    dec_bet_hitarea.interactive = true
+                    dec_bet_btn.alpha = 1
 
-                dec_bet_hitarea.interactive = true
-                dec_bet_btn.alpha = 1
+                    inc_bet_hitarea.interactive = true
+                    inc_bet_btn.alpha = 1
 
-                inc_bet_hitarea.interactive = true
-                inc_bet_btn.alpha = 1
+                    dec_coinvalue_hitarea.interactive = true
+                    dec_coinvalue_btn.alpha = 1
 
-                dec_coinvalue_hitarea.interactive = true
-                dec_coinvalue_btn.alpha = 1
+                    inc_coinvalue_hitarea.interactive = true
+                    inc_coinvalue_btn.alpha = 1
 
-                inc_coinvalue_hitarea.interactive = true
-                inc_coinvalue_btn.alpha = 1
-
-                return
+                    return
+                }
             }
         }
     }

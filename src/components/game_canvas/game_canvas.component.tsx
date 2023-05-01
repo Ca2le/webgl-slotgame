@@ -8,7 +8,7 @@ import { store } from "../../store/store";
 import { createGameContainer } from "../../utils/create_container/create_container.util";
 import { createUI } from "../../utils/create_game_interface/create_game_interface.utils";
 import { createMaskContainer } from "../../utils/create_mask_container/create_mask_container.util";
-import { updateUI } from "../../utils/update_economy/update_economy.util";
+import { updateUI } from "../../utils/update_ui/update_ui";
 import { replaceOldGrid } from "../../utils/grid_with_effects/grid_with_effects.util";
 import { Result } from "../../types/global.types";
 
