@@ -5,7 +5,7 @@ import { addHitArea } from "../create_button/create_button.util";
 import { GameStatus } from "../../network/slot_simulator";
 import { GlowFilter } from "@pixi/filter-glow";
 
-type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_status"
+type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_status" | "coins_added"
 
 export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetchNewData?: () => Promise<GameStatus | undefined>) {
     const { loading, autobet, gameEconomy } = store.getState()
@@ -33,6 +33,10 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
 
     switch (input) {
         case "coins_remove": {
+            update_coins()
+            break
+        }
+        case "coins_added": {
             update_coins()
             break
         }

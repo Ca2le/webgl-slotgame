@@ -73,10 +73,15 @@ export function GameCanvas() {
             setHasPayed(false)
         }
     }, [hasPayed])
+    
 
     useEffect(() => {
         startAutobet(fetchNewData)
     }, [autobet.autoLoading])
+
+    useEffect(() => {
+        updateUI(memorizedApp, "coins_added");
+    }, [gameEconomy.coins])
 
     useEffect(() => {
         updateUI(memorizedApp, "bet_status");
@@ -128,6 +133,7 @@ export function GameCanvas() {
 //     })
 // }
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
+    const { totalPrice } = store.getState().game
 
     let timerID
     BG_darknesEffect(app, false)
@@ -142,7 +148,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
     const paylines = game.filterdPayLine
     const rotationSpeed = 0.01;
 
-    const showPayline= () => {
+    const showPayline = () => {
         const animation = new Ticker()
         const prevIndex = (paylineIndex === 0) ? paylines.length - 1 : paylineIndex - 1
         const prevPayline = paylines[prevIndex]
@@ -174,7 +180,6 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
             timerID = setTimeout(showPayline, 1500)
         }
     }
-    
     const stopAt = symbol.fullSize
     let speed = 20;
 
@@ -188,8 +193,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
                 BG_darknesEffect(app, true)
                 activateAlphas(memoGameData)
             }
-            
-            console.log("mipmipp")
+            store.dispatch({ type: "ADD_COINS", payload: totalPrice })
             store.dispatch({ type: "NOT_LOADING" })
             oneSpin.destroy()
         }
