@@ -11,6 +11,7 @@
     "commit": "git add . && git commit -m $1"
   },
   "dependencies": {
+    "@pixi/filter-glow": "^5.2.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/lodash": "^4.14.192",
     "lodash": "^4.17.21",

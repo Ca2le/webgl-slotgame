@@ -2,39 +2,41 @@
 import { ScreenSize } from "../types/global.types"
 import { ScreenAction } from "../types/reducer.types"
 
+
+const square = 150
+
 const initialScreen: ScreenSize = {
-    fullView: {
-        width: 1000,
-        height: 600
+    max: {
+        width: 1050,
+        height: 750
     },
-    // 100px * 5 symbols = 500 width
-    // 100px * 3 symbols = 300 height = 3 symbols showing
-    maskSize: {
+    mask: {
         width: 750,
         height: 450
     },
-    // 100px * 8 symbols = 800 height
-    // 100px * 5 symbols = 500 width
-    gridSize: {
+    grid: {
         width: 750,
-        height: 1200
+        height: 2850
     },
-    UI_Size: {
-        width: 1000,
-        height: 100
-    },
-    symbolSize: {
-        width: 150,
+    UI_: {
+        width: 1050,
         height: 150
+    },
+    symbol: {
+        fullSize: square,
+        graphSize: 140,
+        spriteSize: 125,
     }
 }
+ // graphSize: ((square / 10) * 9.5),
+ //((square / 10) * 8)
 
 export function screenSize(state: ScreenSize = initialScreen, action: ScreenAction) {
-        switch (action.type) {
+    switch (action.type) {
         case "UPDATE_SCREEN": {
-        return state = action.payload
-    }
+            return state = action.payload
+        }
         default:
-    return state
-}
+            return state
+    }
 }
