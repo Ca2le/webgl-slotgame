@@ -33,7 +33,7 @@ function randomNr(): number[] {
     return numbers;
 }
 
-function checkPaylines(result: Result, bet:number) {
+function checkPaylines(result: Result, bet: number) {
     const grid = result
     const gameStatus: GameStatus = {
         grid,
@@ -48,8 +48,13 @@ function checkPaylines(result: Result, bet:number) {
     const payLine1 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]]
     const payLine2 = [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1]]
     const payLine3 = [[0, 2], [1, 2], [2, 2], [3, 2], [4, 2]]
+    const payLine4 = [[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]]
+    const payLine5 = [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]]
+    const payLine6 = [[0, 0], [1, 0], [2, 2], [3, 0], [4, 0]]
+    const payLine7 = [[0, 2], [1, 2], [2, 0], [3, 2], [4, 2]]
 
-    const payLines = [payLine1, payLine2, payLine3]
+
+    const payLines = [payLine1, payLine2, payLine3, payLine4, payLine5, payLine6, payLine7]
 
 
     payLines.map(((payLine, index) => {
@@ -78,6 +83,7 @@ function checkPaylines(result: Result, bet:number) {
 
     gameStatus.totalPrice = gameStatus.totalPrice * bet
 
+    console.log(gameStatus, "win here!")
     return gameStatus
 }
 
@@ -92,7 +98,7 @@ export interface GameStatus {
 }
 
 export function generateResult(bet: number): GameStatus {
-    
+
     const newGrid = generateReels()
     const gameStatus = checkPaylines(newGrid, bet)
     return gameStatus
