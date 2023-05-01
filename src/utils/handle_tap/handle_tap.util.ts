@@ -1,46 +1,47 @@
-import { FederatedPointerEvent } from "pixi.js"
 import { GameStatus } from "../../network/slot_simulator"
 import { store } from "../../store/store"
 import { Result } from "../../types/global.types"
+import { updateUI } from "../update_economy/update_economy.util"
 
-export const handleTap = async (e: FederatedPointerEvent, fetchNewData: () => Promise<GameStatus | undefined>) => {
-    console.log('Btn 👻')
-    const dataStatus: GameStatus = {
-        grid: [],
-        win: {
-            scatters: [],
-            threeInARow: [],
-            fourInARow: [],
-            fiveInARow: [],
-        }
+export const gameController = async<T>(fetchNewData: () => Promise<GameStatus | undefined>, bet?: string) => {
+    if (bet) {
+        store.dispatch({ type: bet })
     }
-    const prevGameStatus = store.getState().game
-    const prev = prevGameStatus.grid
-    console.log("is it 8?", prev)
-    fetchNewData()
-        .then(result => {
-            const latest = result?.grid
-            if (latest) {
-                const grid = prev.map((reel, i) => {
-                    const newReel = []
-                    for (let index = 0; index < 16; index++) {
-                        newReel.push(latest[i][index])
-                    }
-                    for (let index = 0; index < 3; index++) {
-                        newReel.push(prev[i][index])
-                    }
-                    //Swapping places position 
-                    return newReel
-                })
-                dataStatus.grid = grid as Result
-                store.dispatch({
-                    type: 'UPDATE_DATA',
-                    payload: dataStatus
-                })
 
+    console.log('Update 👻')
+    const oldGrid = store.getState().game.grid
+    const response = await fetchNewData()
 
+    if (response) {
+        const newGrid = response?.grid
+        const updatedGrid = oldGrid.map((reel, i) => {
+            const newReel = []
+            for (let index = 0; index < 16; index++) {
+                newReel.push(newGrid[i][index])
             }
+            for (let index = 0; index < 3; index++) {
+                newReel.push(oldGrid[i][index])
+            }
+            //Swapping places position 
+            return newReel
+        }) as Result
 
+        const dataStatus: GameStatus = {
+            grid: updatedGrid,
+            wins: response.wins,
+            payLines: response.payLines,
+            payLineNumber: response.payLineNumber,
+            filterdPayLine: response.filterdPayLine,
+            winningSymbol: response.winningSymbol,
+            totalPrice: response.totalPrice
+        }
+
+        store.dispatch({
+            type: 'UPDATE_DATA',
+            payload: dataStatus
         })
+
+    }
+
 
 }

@@ -6,12 +6,12 @@ import { GameAction } from "../types/reducer.types"
 
 const initialGameStatus: GameStatus = {
     grid: initialState,
-    win: {
-        scatters: [],
-        threeInARow: [],
-        fourInARow: [],
-        fiveInARow: [],
-    }
+    wins: [],
+    payLines: [],
+    payLineNumber: [],
+    filterdPayLine: [],
+    winningSymbol: [],
+    totalPrice: 0
 }
 
 export function game(state: GameStatus = initialGameStatus, action: GameAction) {
