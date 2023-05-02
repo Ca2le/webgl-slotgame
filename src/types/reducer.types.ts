@@ -17,7 +17,7 @@ export type GameAction = {
 
 export type ScreenAction = {
     type: string,
-    payload: ScreenSize
+    payload: number
 }
 
 export type GameEconomyAction = {

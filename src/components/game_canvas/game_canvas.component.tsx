@@ -16,6 +16,8 @@ import { BG_darknesEffect } from "../../utils/bg_darkness_effects/bg_darkness_ef
 import { lightEffects } from "../../utils/light_effects/light_effects.util";
 import { createSprite } from "../../utils/create_sprite/create_sprite.util";
 import { startAutobet } from "../../utils/autobet/autobet.util";
+import { goldRainEmitter } from "../../utils/gold_rain_effect/gold_rain_effect";
+import { findContainer } from "../../utils/find/find_container.util";
 
 export interface PayLineObj {
     line: string,
@@ -34,8 +36,8 @@ export function GameCanvas() {
         const app = new Application<HTMLCanvasElement>({ width: screenSize.max.width, height: screenSize.max.height, backgroundAlpha: 0 })
         // All this does is creating, scaling and positioning the intitial game content. The heart of the app :D
         const gameContainer = createGameContainer()
-        const Darkness = createDarkGraph(2000, 2000, 0.2, -1, "dark")
-        const BackgroundImg = createSprite("BACKGROUND", 1050, 750)
+        const Darkness = createDarkGraph(screenSize.max.height, screenSize.max.width, 0.2, -1, "dark")
+        const BackgroundImg = createSprite("BACKGROUND", screenSize.max.width, screenSize.max.height)
         const UIContainer = createUI(fetchNewData, app)
         const maskContainer = createMaskContainer()
         const gridContainer = createGridContainer(game.grid)
@@ -73,7 +75,6 @@ export function GameCanvas() {
             setHasPayed(false)
         }
     }, [hasPayed])
-    
 
     useEffect(() => {
         startAutobet(fetchNewData)
@@ -134,7 +135,10 @@ export function GameCanvas() {
 // }
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
     const { totalPrice } = store.getState().game
-
+    const gameContainer = findContainer(app, "gameContainer")
+    const goldSprite = createSprite("GOLD").texture
+    const emitter = goldRainEmitter(gameContainer, goldSprite)
+    emitter.emit = true
     let timerID
     BG_darknesEffect(app, false)
     let addAnimation = true
@@ -165,6 +169,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
                     mask.rotation += rotationSpeed;
                     mask.scale.x = 1 + Math.sin(count) * 0.04;
                     mask.scale.y = 1 + Math.cos(count) * 0.04;
+
                 });
             }
         })
@@ -185,6 +190,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
 
     const oneSpin = new Ticker()
     oneSpin.add(() => {
+
         newGridContainer.y += speed;
         if (newGridContainer.position.y >= stopAt) {
             speed = 0
@@ -215,52 +221,52 @@ export function activateAlphas(memoGameData: Result) {
     })
 }
 
-export function createDarknessContainer(height: number, width: number, alpha: number) {
-    const createFrame = (height: number, width: number) => {
-        const graph = new Graphics();
-        graph.height = height
-        graph.width = width
-        graph.name = "darkframe"
-        graph.beginFill("rgba(7, 2, 45)");
-        graph.drawRect(0, 0, width, height);
-        graph.endFill();
-        return graph
-    }
+// export function createDarknessContainer(height: number, width: number, alpha: number) {
+//     const createFrame = (height: number, width: number) => {
+//         const graph = new Graphics();
+//         graph.height = height
+//         graph.width = width
+//         graph.name = "darkframe"
+//         graph.beginFill("rgba(7, 2, 45)");
+//         graph.drawRect(0, 0, width, height);
+//         graph.endFill();
+//         return graph
+//     }
 
-    const container = new Container()
-    container.name = "darknessContainer"
-    container.width = width
-    container.height = height
-    const leftFrame = createFrame(750, 150)
-    const rightFrame = createFrame(750, 150)
-    const topFrame = createFrame(150, 750)
-    const bottomFrame = createFrame(150, 750)
-    bottomFrame.y = height - 150
-    bottomFrame.x = 150
-    topFrame.x = 150
-    rightFrame.x = width - 150
-    container.addChild(leftFrame)
-    container.addChild(rightFrame)
-    container.addChild(topFrame)
-    container.addChild(bottomFrame)
+//     const container = new Container()
+//     container.name = "darknessContainer"
+//     container.width = width
+//     container.height = height
+//     const leftFrame = createFrame(750, 150)
+//     const rightFrame = createFrame(750, 150)
+//     const topFrame = createFrame(150, 750)
+//     const bottomFrame = createFrame(150, 750)
+//     bottomFrame.y = height - 150
+//     bottomFrame.x = 150
+//     topFrame.x = 150
+//     rightFrame.x = width - 150
+//     container.addChild(leftFrame)
+//     container.addChild(rightFrame)
+//     container.addChild(topFrame)
+//     container.addChild(bottomFrame)
 
 
-    // const inverseMask = new Graphics();
-    // inverseMask.name = "darkness"
-    // graph.beginFill("rgba(7, 2, 45)");
-    // inverseMask.drawRect(0, 0, 50, 50); // adjust the dimensions and position to match your inner rectangle
-    // graph.endFill();
+//     // const inverseMask = new Graphics();
+//     // inverseMask.name = "darkness"
+//     // graph.beginFill("rgba(7, 2, 45)");
+//     // inverseMask.drawRect(0, 0, 50, 50); // adjust the dimensions and position to match your inner rectangle
+//     // graph.endFill();
 
-    // const x = (width - mask.width)/2
-    // const y = (height - mask.height)/2
-    // mask.x = x
-    // mask.y = y
-    // graph.addChild(inverseMask)
-    // container.addChild(graph)
+//     // const x = (width - mask.width)/2
+//     // const y = (height - mask.height)/2
+//     // mask.x = x
+//     // mask.y = y
+//     // graph.addChild(inverseMask)
+//     // container.addChild(graph)
 
-    container.alpha = alpha
-    return container
-}
+//     container.alpha = alpha
+//     return container
+// }
 
 export function createDarkGraph(height: number, width: number, alpha = 0.2, zindex = 0, input: "dark" | "light") {
     const graph = new Graphics();

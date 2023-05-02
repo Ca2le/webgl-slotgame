@@ -14,9 +14,9 @@ export function ControlBar() {
                 <Icon id="info_icon" path={Icons.info} />
             </GameConfig>
             <BalanceBoard>
-                <BalanceInfo>{`Balance: $${coins}`}</BalanceInfo>
-                <BalanceInfo>{`Bet: $${bet}`}</BalanceInfo>
-                <BalanceInfo>{`Win: $${win}`}</BalanceInfo>
+                <BalanceInfo>{`Balance: ${coins}`}</BalanceInfo>
+                <BalanceInfo>{`Bet: ${bet}`}</BalanceInfo>
+                <BalanceInfo>{`Win: ${win}`}</BalanceInfo>
             </BalanceBoard>
             <Signature>Created by Ca2le</Signature>
         </ControlBarContainer>

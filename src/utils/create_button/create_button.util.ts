@@ -3,7 +3,7 @@ import { Assets } from "../../types/global.types";
 import { store } from "../../store/store";
 import { GlowFilter } from "@pixi/filter-glow";
 import { GameStatus } from "../../network/slot_simulator";
-import { gameController } from "../handle_tap/handle_tap.util";
+import { gameController } from "../game_controller/game_controller.util";
 const { max, UI_, symbol } = store.getState().screenSize
 
 
@@ -63,10 +63,10 @@ export function addHitArea(imgIcon: Assets, sprite: Sprite, fetchNewData: (bet?:
     hitContainer.addChild(bettxt)
 
     hitArea.on('click', () => {
-      store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 2 })
+      store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 5 })
     })
     hitArea.on('tap', () => {
-      store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 2 })
+      store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 5 })
     })
 
   }

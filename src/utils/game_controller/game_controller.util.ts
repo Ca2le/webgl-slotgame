@@ -3,7 +3,7 @@ import { store } from "../../store/store"
 import { Result } from "../../types/global.types"
 import { updateUI } from "../update_ui/update_ui"
 
-export const gameController = async<T>(fetchNewData: () => Promise<GameStatus | undefined>, bet?: string) => {
+export const gameController = async(fetchNewData: () => Promise<GameStatus | undefined>, bet?: string) => {
     if (bet) {
         store.dispatch({ type: bet })
     }
