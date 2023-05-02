@@ -18,6 +18,7 @@ import { createSprite } from "../../utils/create_sprite/create_sprite.util";
 import { startAutobet } from "../../utils/autobet/autobet.util";
 import { goldRainEmitter } from "../../utils/gold_rain_effect/gold_rain_effect";
 import { findContainer } from "../../utils/find/find_container.util";
+import { createBobsMsgContainer } from "../../utils/createBobsMsgContainer.util";
 
 export interface PayLineObj {
     line: string,
@@ -25,6 +26,7 @@ export interface PayLineObj {
 }
 
 export function GameCanvas() {
+    const [bobsGreetingMsg, setBobsGreetingMsg] = useState(true)
     const { screenSize, game, gameEconomy, autobet, loading } = useSelector((state: RootState) => state)
     const { bet, coinValue } = gameEconomy
     const [hasPayed, setHasPayed] = useState(false)
@@ -36,6 +38,7 @@ export function GameCanvas() {
         const app = new Application<HTMLCanvasElement>({ width: screenSize.max.width, height: screenSize.max.height, backgroundAlpha: 0 })
         // All this does is creating, scaling and positioning the intitial game content. The heart of the app :D
         const gameContainer = createGameContainer()
+        const bobsMsgContainer = createBobsMsgContainer()
         const Darkness = createDarkGraph(screenSize.max.height, screenSize.max.width, 0.2, -1, "dark")
         const BackgroundImg = createSprite("BACKGROUND", screenSize.max.width, screenSize.max.height)
         const UIContainer = createUI(fetchNewData, app)
@@ -47,6 +50,7 @@ export function GameCanvas() {
         gameContainer.addChild(Darkness)
         maskContainer.addChild(gridContainer)
         gameContainer.addChild(UIContainer)
+        gameContainer.addChild(bobsMsgContainer)
         app.stage.addChild(gameContainer)
         return app
     }, [])
