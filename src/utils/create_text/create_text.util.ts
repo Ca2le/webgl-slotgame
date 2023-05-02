@@ -1,8 +1,9 @@
 import { Text, TextStyle } from "pixi.js";
-
+import { store } from "../../store/store";
+const { symbol } = store.getState().screenSize
 const textStyle = new TextStyle({
     fontFamily: ['Sigmar', 'cursive'],
-    fontSize: 20,
+    fontSize: 0.13 * symbol.fullSize,
     fontWeight: '400',
     fill: '#FFFFFF',
     dropShadow: true,
@@ -11,7 +12,7 @@ const textStyle = new TextStyle({
 })
 const headerStyle = new TextStyle({
     fontFamily: ['Sigmar', 'cursive'],
-    fontSize: 12,
+    fontSize: 0.08 * symbol.fullSize,
     fontWeight: '300',
     fill: '#FFFFFF',
     dropShadow: true,

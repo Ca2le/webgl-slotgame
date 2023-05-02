@@ -1,6 +1,6 @@
 import { GameStatus } from "../../network/slot_simulator";
 import { store } from "../../store/store";
-import { gameController } from "../handle_tap/handle_tap.util";
+import { gameController } from "../game_controller/game_controller.util";
 
 export async function startAutobet(fetchNewData: () => Promise<GameStatus | undefined>) {
     const { numbersOfBets, autoLoading } = store.getState().autobet

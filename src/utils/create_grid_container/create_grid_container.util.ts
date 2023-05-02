@@ -1,8 +1,8 @@
-import { AlphaFilter, BlurFilter, Container, Filter, Graphics, Sprite, Texture, filters, utils } from "pixi.js";
+import { Container, Graphics, Sprite, utils } from "pixi.js";
 import { Result, Value } from "../../types/global.types";
 import { store } from "../../store/store";
-import { GlowFilter } from "@pixi/filter-glow";
-import { createDarkGraph, createDarknessContainer } from "../../components/game_canvas/game_canvas.component";
+
+import { createDarkGraph } from "../../components/game_canvas/game_canvas.component";
 
 export function createGridContainer(result: Result) {
     const { symbol, grid, max, mask } = store.getState().screenSize
@@ -24,15 +24,14 @@ export function createGridContainer(result: Result) {
             const sprite = createSpriteSymbol(item)
             const border = createSpriteBorder()
             const radianceContainer = createRadianceContainer(item)
-            const darknessContainer = createDarkGraph(150,150, 0, -1, "light")
+            const darknessContainer = createDarkGraph(symbol.fullSize, symbol.fullSize, 0, -1, "light")
             spriteContainer.addChild(darknessContainer)
             spriteContainer.addChild(sprite)
             spriteContainer.addChild(border)
             spriteContainer.addChild(radianceContainer)
-            
             radianceContainer.visible = false
             reelContainer.addChild(spriteContainer)
-            
+
         })
         gridContainer.addChild(reelContainer)
     })
@@ -57,7 +56,6 @@ function createSpriteContainer(x: number, y: number) {
 }
 
 function createSpriteSymbol(imgName: Value) {
-
     const { symbol } = store.getState().screenSize
     const margin = (symbol.fullSize - symbol.spriteSize) / 2
     const sprite = new Sprite(utils.TextureCache[`./assets/${imgName}.png`]);
@@ -91,28 +89,22 @@ export function createSpriteBorder() {
 }
 
 export function createRadianceContainer(imgName: string) {
-    const { graphSize, fullSize, spriteSize } = store.getState().screenSize.symbol
-    const { symbol } = store.getState().screenSize
-
+    const { graphSize, fullSize } = store.getState().screenSize.symbol
     const radianceContainer = new Container()
     radianceContainer.name = "radianceContainer"
-    radianceContainer.width = 150
-    radianceContainer.height = 150
+    radianceContainer.width = fullSize
+    radianceContainer.height = fullSize
     const radiance = new Sprite(utils.TextureCache[`./assets/RADIANCE.png`])
     radiance.anchor.set(0.5)
     radiance.name = "radiance"
-
-  
     const graphics = new Graphics()
-    graphics.beginFill(0xffffff)
-    graphics.alpha = 1
-    graphics.drawRect(0, 0, 150, 150)
+    graphics.beginFill(0xFFFFFF)
+    graphics.alpha = 0.3
+    graphics.drawRect(0, 0, fullSize, fullSize)
     graphics.endFill()
     graphics.mask = radiance
-
     radianceContainer.addChild(graphics)
     radianceContainer.addChild(radiance)
-
     radiance.x = radianceContainer.width
     radiance.y = radianceContainer.height
 

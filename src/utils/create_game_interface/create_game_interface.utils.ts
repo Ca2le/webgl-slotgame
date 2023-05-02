@@ -35,7 +35,7 @@ export function createUIContainer(name: string, width = symbol.fullSize, y = 0) 
     const container = new Container()
     container.name = name
     container.width = width
-    container.height = UI_.height
+    container.height = UI_.height 
     container.position.y = y
     return container
 
@@ -60,6 +60,13 @@ export function createUICenterContainer(fetchNewData: () => Promise<GameStatus |
 }
 
 export function createUILeftContainer() {
+    const quaterSize = symbol.fullSize * 0.25
+    const halfSize = symbol.fullSize * 0.5
+    const oneSize = symbol.fullSize
+    const twoSize = symbol.fullSize * 2
+    const threeSize = symbol.fullSize * 3
+    const fourSize = symbol.fullSize * 4
+
     const leftContainer = createUIContainer("leftContainer", twoSize)
     const settingsContainer = createUIContainer("settingsContainer", oneSize)
     const settings = createSprite("SETTINGSDISPLAY", oneSize, oneSize)
@@ -70,7 +77,6 @@ export function createUILeftContainer() {
     const incBtn = createBtn("INCREMENT", "INCREMENT_BET")
     const betTxt = createText("BET", "header");
     const amounTxt = createText(bet, "text");
-    const quaterDisplay = betDisplay.width / 4
     const halfDisplay = betDisplay.width / 2
     const btnX = (halfDisplay - decBtn.width) / 2
     const btnY = (betDisplay.height - decBtn.height) / 1.8
@@ -154,14 +160,14 @@ export function createUIRightContainer() {
     const goldCoinDisplay = createSprite("DISPLAY", oneSize, oneSize)
     const goldCoin = createSprite("GOLD", btnSize, btnSize)
     const goldCoinAmountTxt = createText(coins, "text");
-    const goldCoinX = (halfDisplay - decBtn.width) / 2
-    const goldCoinY = (goldCoinDisplay.height - decBtn.height) / 2
+    const goldCoinX = (halfDisplay - goldCoin.width) / 2
+    const goldCoinY = (goldCoinDisplay.height - goldCoin.height) / 2
     const goldCoinTxtY = (goldCoinDisplay.height - goldCoinAmountTxt.height) / 2
     const goldCoinTxtX = goldCoinDisplay.width / 4
 
     goldCoinAmountTxt.y = goldCoinTxtY
     goldCoinAmountTxt.x = goldCoinTxtX
-    goldCoin.position.y = goldCoinY
+    goldCoin.position.y = goldCoinY 
     goldCoin.position.x = goldCoinX + halfDisplay
 
     goldCoinContainer.addChild(goldCoinDisplay)
