@@ -104,39 +104,6 @@ export function GameCanvas() {
     return <div style={{ height: "100%", width: "auto" }} ref={ref} />
 }
 
-// export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
-//     const { symbol } = store.getState().screenSize
-//     const { filterdPayLine } = store.getState().game
-//     const maskContainer = findContainer(app, "maskContainer")
-//     const newGridContainer = createGridContainer(memoGameData)
-
-//     //Switch old grid with new grid ♻️
-//     maskContainer.removeChildAt(0)
-//     maskContainer.addChild(newGridContainer)
-
-//     const grid = newGridContainer.children
-//     const payLine1 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]]
-//     if (filterdPayLine.length > 0) {
-//         filterdPayLine.forEach((payline, index) => {
-//             payline.forEach((cords, i) => {
-//                 const x = cords[0]
-//                 const y = cords[1]
-//                 const reel = grid[x] as Container<DisplayObject>
-//                 const symbol = reel.children[y] as Container<DisplayObject>
-//                 const graph = symbol.getChildByName("border") as DisplayObject
-//                 graph.visible = false
-//             })
-//         })
-//     }
-//     const stopAt = symbol.fullSize
-//     let speed = 20;
-//     app.ticker.add(() => {
-//         newGridContainer.position.y += speed;
-//         if (newGridContainer.position.y >= stopAt) {
-//             speed = 0
-//         }
-//     })
-// }
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
     const { totalPrice } = store.getState().game
     const gameContainer = findContainer(app, "gameContainer")
@@ -209,13 +176,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
         }
     })
     oneSpin.start()
-    // const spinner = app.ticker.add(() => {
-    //     newGridContainer.y += speed;
-    //     if (newGridContainer.position.y >= stopAt) {
-    //         speed = 0
-
-    //     }
-    // })
+  
 }
 
 export function activateAlphas(memoGameData: Result) {
@@ -224,53 +185,6 @@ export function activateAlphas(memoGameData: Result) {
         }
     })
 }
-
-// export function createDarknessContainer(height: number, width: number, alpha: number) {
-//     const createFrame = (height: number, width: number) => {
-//         const graph = new Graphics();
-//         graph.height = height
-//         graph.width = width
-//         graph.name = "darkframe"
-//         graph.beginFill("rgba(7, 2, 45)");
-//         graph.drawRect(0, 0, width, height);
-//         graph.endFill();
-//         return graph
-//     }
-
-//     const container = new Container()
-//     container.name = "darknessContainer"
-//     container.width = width
-//     container.height = height
-//     const leftFrame = createFrame(750, 150)
-//     const rightFrame = createFrame(750, 150)
-//     const topFrame = createFrame(150, 750)
-//     const bottomFrame = createFrame(150, 750)
-//     bottomFrame.y = height - 150
-//     bottomFrame.x = 150
-//     topFrame.x = 150
-//     rightFrame.x = width - 150
-//     container.addChild(leftFrame)
-//     container.addChild(rightFrame)
-//     container.addChild(topFrame)
-//     container.addChild(bottomFrame)
-
-
-//     // const inverseMask = new Graphics();
-//     // inverseMask.name = "darkness"
-//     // graph.beginFill("rgba(7, 2, 45)");
-//     // inverseMask.drawRect(0, 0, 50, 50); // adjust the dimensions and position to match your inner rectangle
-//     // graph.endFill();
-
-//     // const x = (width - mask.width)/2
-//     // const y = (height - mask.height)/2
-//     // mask.x = x
-//     // mask.y = y
-//     // graph.addChild(inverseMask)
-//     // container.addChild(graph)
-
-//     container.alpha = alpha
-//     return container
-// }
 
 export function createDarkGraph(height: number, width: number, alpha = 0.2, zindex = 0, input: "dark" | "light") {
     const graph = new Graphics();
@@ -291,17 +205,3 @@ export function createDarkGraph(height: number, width: number, alpha = 0.2, zind
 
     return graph
 }
-
-
-        // if (newDataIsLoaded && memoGameData) {
-        //     console.log("What is this?", gameEconomy.coins)
-        //     console.log(gameData, "GAMEDATA :O")
-        //     dispatch({ type: "REMOVE_COINS" })
-        //     updateEconomy(memorizedApp, "coins")
-        //     console.log("What is this?", gameEconomy.coins)
-        //     startNewRound(memorizedApp, memoGameData)
-        //     dispatch({ type: "ADD_COINS", payload: gameData.totalPrice })
-        //     // updateEconomy(memorizedApp, "coins")
-        //     // cleanUp(memorizedApp)
-        //     setNewDataIsLoaded(false)
-        // }
