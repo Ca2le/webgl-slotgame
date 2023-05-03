@@ -5,27 +5,28 @@ import { createSprite } from "./create_sprite/create_sprite.util";
 import { GlowFilter } from "@pixi/filter-glow";
 const { max, symbol } = store.getState().screenSize
 
-const headerStyle = new TextStyle({
-    fontFamily: ['Sigmar', 'cursive'],
-    fontSize: 0.25 * symbol.fullSize,
-    fontWeight: '300',
-    fill: '#FFFFFF',
-    dropShadow: true,
-    dropShadowBlur: 3,
-    dropShadowDistance: 2,
-})
 
-const paylineHeader = new TextStyle({
-    fontFamily: ['Open Sans', 'cursive'],
-    fontSize: 0.20 * symbol.fullSize,
-    fontWeight: '300',
-    fill: '#FFFFFF',
-    dropShadow: true,
-    dropShadowBlur: 3,
-    dropShadowDistance: 2,
-})
 
-export function createBobsMsgContainer() {
+export function  createBobsMsgContainer() {
+    const headerStyle = new TextStyle({
+        fontFamily: ['Sigmar', 'cursive'],
+        fontSize: 0.25 * symbol.fullSize,
+        fontWeight: '300',
+        fill: '#FFFFFF',
+        dropShadow: true,
+        dropShadowBlur: 3,
+        dropShadowDistance: 2,
+    })
+    
+    const paylineHeader = new TextStyle({
+        fontFamily: ['Open Sans', 'cursive'],
+        fontSize: 0.20 * symbol.fullSize,
+        fontWeight: '300',
+        fill: '#FFFFFF',
+        dropShadow: true,
+        dropShadowBlur: 3,
+        dropShadowDistance: 2,
+    })
 
     const bobsContainer = new Container()
     bobsContainer.name = "bobsContainer"
