@@ -26,6 +26,7 @@ export interface PayLineObj {
 }
 
 export function GameCanvas() {
+    console.log(window)
     const [bobsGreetingMsg, setBobsGreetingMsg] = useState(true)
     const { screenSize, game, gameEconomy, autobet, loading } = useSelector((state: RootState) => state)
     const { bet, coinValue } = gameEconomy

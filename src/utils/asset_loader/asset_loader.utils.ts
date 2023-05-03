@@ -59,10 +59,10 @@ export async function loadAssets() {
    const asset_26_img = "./assets/BACKGROUND.png"
    const asset_28_img = "./assets/HAMMER.png"
    const asset_29_img = "./assets/PAYLINES.png"
-
+   console.log("how many times?")
    try {
 
-      await fontLoader()
+  
       await Assets.load<Texture>(asset_1_img);
       await Assets.load<Texture>(asset_2_img);
       await Assets.load<Texture>(asset_3_img);
@@ -98,3 +98,8 @@ export async function loadAssets() {
       console.error("🧟Failed to load assets: ", err);
    }
 }
+
+
+
+
+

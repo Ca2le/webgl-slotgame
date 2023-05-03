@@ -10,20 +10,31 @@ interface Loader {
 
 function App() {
   const [loader, setLoader] = useState<Loader>({ loadingStatus: "", loadingBar: 0 });
-
+  const [isLoaded, setLoaded] = useState(false);
   useEffect(() => {
-    if (loader.loadingBar === 0) {
-      setLoader({ loadingBar: 10, loadingStatus: "Loading game assets..." });
-      (async () => {
-        const assets = await loadAssets()
-        if (assets) {
-          setLoader({ loadingBar: 100, loadingStatus: "Assets loaded." })
-        } else setLoader({ loadingStatus: "Could not load images... 🧌", loadingBar: 0 })
-      })()
+    const loading = async () => {
+      setLoader({ loadingBar: 30, loadingStatus: "...Loading...game...assets...30%..." });
+      const assets = await loadAssets()
+      await new Promise((res) => {
+        setTimeout(() => {
+          res("")
+        }, 1000)
+      })
+      setLoader({ loadingBar: 50, loadingStatus: "...Complete...100%..." });
+      await new Promise((res) => {
+        setTimeout(() => {
+          res("")
+        }, 1000)
+      })
+      if (assets) {
+        setLoader({ loadingBar: 100, loadingStatus: "...Complet...100%..." })
+        setLoaded(true)
+      } else setLoader({ loadingStatus: "Could not load images... 🧌", loadingBar: 0 })
     }
+    loading()
   }, [])
 
-  if (loader.loadingBar === 100) {
+  if (isLoaded) {
     return (
       <Container className="App">
         <Game />
@@ -31,7 +42,9 @@ function App() {
     )
   } else {
     return <div>
-      <h1>{loader.loadingStatus}</h1>
+      {/* Have to render the fonts before app inits otherwise they wont be cached */}
+      <h1 style={{ fontFamily: 'Sigmar' }} >{loader.loadingStatus}</h1>
+      <p style={{ fontFamily: 'Open Sans' }} />
     </div>
   }
 }
