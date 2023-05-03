@@ -32,7 +32,7 @@ export function createBobsMsgContainer() {
     bobsContainer.height = max.height
     bobsContainer.width = max.width
 
-    const graph = createDarkGraph(max.height, max.width, 1, 5, "dark")
+    const graph = createDarkGraph(max.height, max.width, 0.90, 5, "dark")
     bobsContainer.addChild(graph)
 
     const firstMsg = new Text("BOB'S BLACKSMITH", headerStyle);

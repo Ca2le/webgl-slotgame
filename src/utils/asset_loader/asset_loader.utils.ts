@@ -1,5 +1,6 @@
 import { Assets, BitmapFont, Loader, Texture } from 'pixi.js';
 import App from '../../App';
+import { fontLoader } from './font_loader';
 
 // import asset_1_img from "../../assets/TEN.png"
 // import asset_2_img from "../../assets/J.png"
@@ -61,7 +62,7 @@ export async function loadAssets() {
 
    try {
 
-
+      await fontLoader()
       await Assets.load<Texture>(asset_1_img);
       await Assets.load<Texture>(asset_2_img);
       await Assets.load<Texture>(asset_3_img);
