@@ -27,8 +27,7 @@ export interface PayLineObj {
 }
 
 export function GameCanvas() {
-
-    const [bobsGreetingMsg, setBobsGreetingMsg] = useState(true)
+    const [initialRender, setInitialRender] = useState(true);
     const { screenSize, game, gameEconomy, autobet, loading } = useSelector((state: RootState) => state)
     const { bet, coinValue } = gameEconomy
     const [hasPayed, setHasPayed] = useState(false)
@@ -63,6 +62,7 @@ export function GameCanvas() {
             memorizedApp.resizeTo = element
             element.appendChild(memorizedApp.view)
             memorizedApp.start()
+            console.log("Befire; ",memorizedApp)
         }
     }, [memorizedApp])
 
@@ -80,6 +80,7 @@ export function GameCanvas() {
             // spinOneTime(memorizedApp, memoGameData);
             spinOneTime(memorizedApp, memoGameData);
             setHasPayed(false)
+            console.log("ÄFTER; ",memorizedApp)
         }
     }, [hasPayed])
 
@@ -105,7 +106,6 @@ export function GameCanvas() {
     }, [loading.status, autobet.autoLoading])
 
     useEffect(() => {
-        console.log(memorizedApp)
         updateUI(memorizedApp, "resize");
 
     }, [screenSize])
@@ -142,7 +142,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
         payline.forEach((cords, i) => {
             const x = cords[0]
             const y = cords[1]
-           
+
             const reel = newGridContainer.children[x] as Container<DisplayObject>
             const symbol = reel.children[y] as Container<DisplayObject>
             const radiance = symbol.getChildByName("radianceContainer") as Container<DisplayObject>
@@ -168,6 +168,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
             timerID = setTimeout(showPayline, 1500)
         }
     }
+    // change this later
     const stopAt = symbol.fullSize
     let speed = 20;
 
@@ -175,6 +176,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
     oneSpin.add(() => {
 
         newGridContainer.y += speed;
+        console.log(newGridContainer.position)
         if (newGridContainer.position.y >= stopAt) {
             speed = 0
             if (paylines.length > 0) {

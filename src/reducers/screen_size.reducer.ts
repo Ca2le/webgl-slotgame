@@ -3,8 +3,8 @@ import { ScreenSize } from "../types/global.types"
 import { ScreenAction } from "../types/reducer.types"
 
 
-
-const square = 130
+const size = window.innerWidth / window.innerHeight
+const square = 120 * size
 
 const initialScreen: ScreenSize = {
 
@@ -41,10 +41,12 @@ export function screenSize(state: ScreenSize = initialScreen, action: ScreenActi
 
     switch (action.type) {
         case "UPDATE_SCREEN": {
-
-            const newSquare = action.payload * 150
-
-            const newSize = { ...state, max: { width: 7 * newSquare, height: 5 * newSquare } }
+            const newSquare = action.payload * 120
+            const width = newSquare * 7;
+            const height = newSquare * 5;
+            const max = { width, height }
+            const newSize = { ...state, max }
+          
             return newSize
         }
         default:

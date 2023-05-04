@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ControlBarContainer = styled.div`
-    height: 1.2rem;
+    height: 1.3rem;
     width: 100%;
     background-color: #1b1b1c;
     color: #fff;

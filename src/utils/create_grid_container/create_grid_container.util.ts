@@ -10,15 +10,12 @@ export function createGridContainer(result: Result) {
     const yPos = -grid.height + (symbol.fullSize + mask.height)
     const gridContainer = new Container()
     gridContainer.name = 'gridContainer'
-    gridContainer.height = grid.height
-    gridContainer.width = grid.width
     gridContainer.position.y = yPos
     gridContainer.position.x = xPos
+   
     result.forEach((reel, x) => {
         const reelContainer = new Container()
         reelContainer.name = "reelContainer"
-        reelContainer.height = grid.height
-        reelContainer.width = symbol.fullSize
         reel.forEach((item, y) => {
             const spriteContainer = createSpriteContainer(x, y)
             const sprite = createSpriteSymbol(item)
@@ -29,46 +26,40 @@ export function createGridContainer(result: Result) {
             spriteContainer.addChild(sprite)
             spriteContainer.addChild(border)
             spriteContainer.addChild(radianceContainer)
-            radianceContainer.visible = false
             reelContainer.addChild(spriteContainer)
+            spriteContainer.position.set(x * symbol.fullSize, y * symbol.fullSize)
+            // const spriteLeftMargin = (spriteContainer.width - sprite.width) / 2
+
+            sprite.height = symbol.spriteSize
+            sprite.width = symbol.spriteSize
+            sprite.position.y = (spriteContainer.height - sprite.height) / 2
+            sprite.position.x = (spriteContainer.width - sprite.width) / 2
+
 
         })
         gridContainer.addChild(reelContainer)
+        
     })
-
+    gridContainer.height = grid.height
     return gridContainer
 }
 
 function createSpriteContainer(x: number, y: number) {
     const { fullSize } = store.getState().screenSize.symbol
     const spriteContainer = new Container()
-    const yPos = fullSize * y
-    const xPos = fullSize * x
     spriteContainer.name = "spriteContainer"
-    spriteContainer.height = fullSize
-    spriteContainer.width = fullSize
     spriteContainer.sortableChildren = true
-    spriteContainer.position.x = xPos
-    spriteContainer.position.y = yPos
-    spriteContainer.isMask = true
 
     return spriteContainer
 }
 
 function createSpriteSymbol(imgName: Value) {
-    const { symbol } = store.getState().screenSize
-    const margin = (symbol.fullSize - symbol.spriteSize) / 2
     const sprite = new Sprite(utils.TextureCache[`./assets/${imgName}.png`]);
     sprite.name = "sprite"
     sprite.alpha = 1
     sprite.zIndex = 2
-    sprite.height = symbol.spriteSize
-    sprite.width = symbol.spriteSize
-    sprite.position.y = margin
-    sprite.position.x = margin
     sprite.visible = true
     sprite.filters = [];
-
     return sprite
 }
 
@@ -90,23 +81,29 @@ export function createSpriteBorder() {
 
 export function createRadianceContainer(imgName: string) {
     const { graphSize, fullSize } = store.getState().screenSize.symbol
+
     const radianceContainer = new Container()
     radianceContainer.name = "radianceContainer"
-    radianceContainer.width = fullSize
-    radianceContainer.height = fullSize
+    radianceContainer.isMask = true
+
     const radiance = new Sprite(utils.TextureCache[`./assets/RADIANCE.png`])
-    radiance.anchor.set(0.5)
     radiance.name = "radiance"
+    radiance.width = fullSize
+    radiance.height = fullSize
+    radiance.anchor.set(0.5, 0.5)
+
     const graphics = new Graphics()
     graphics.beginFill(0xFFFFFF)
-    graphics.alpha = 0.3
     graphics.drawRect(0, 0, fullSize, fullSize)
     graphics.endFill()
-    graphics.mask = radiance
-    radianceContainer.addChild(graphics)
+    graphics.alpha = 0.5
+
+    radianceContainer.mask = radiance
     radianceContainer.addChild(radiance)
-    radiance.x = radianceContainer.width
-    radiance.y = radianceContainer.height
+    radianceContainer.addChild(graphics)
+    radianceContainer.visible = false
+
+    radiance.position.set(radianceContainer.width / 2, radianceContainer.height / 2)
 
     return radianceContainer
 }

@@ -71,6 +71,9 @@ export function  createBobsMsgContainer() {
     hammer.on("click", () => {
         bobsContainer.destroy()
     })
+    hammer.on('tap', () => {
+        bobsContainer.destroy()
+      })
 
     hammer.on('mouseover', () => {
         glow.enabled = true

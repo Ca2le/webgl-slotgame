@@ -9,8 +9,10 @@ type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_sta
 
 export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetchNewData?: () => Promise<GameStatus | undefined>) {
     const { loading, autobet, gameEconomy, screenSize } = store.getState()
+    
     const { coins, bet, coinValue } = gameEconomy
     const { autoLoading, numbersOfBets } = autobet
+
     const gameContainer = app.stage.getChildByName("gameContainer") as Container<DisplayObject>
     const maskContainer = gameContainer.getChildByName('maskContainer') as Container<DisplayObject>
     const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
@@ -36,8 +38,10 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
         case "resize": {
             gameContainer.width = screenSize.max.width
             gameContainer.height = screenSize.max.height
-
-            console.log(screenSize)
+            app.view.height = screenSize.max.height
+            app.view.width = screenSize.max.width
+            app.stage.height = screenSize.max.height
+            app.stage.width = screenSize.max.width
 
         }
         case "coins_remove": {
