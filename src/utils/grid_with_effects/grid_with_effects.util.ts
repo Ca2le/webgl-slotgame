@@ -1,16 +1,23 @@
-import { Application } from "pixi.js";
+import { Application, Graphics } from "pixi.js";
 import { store } from "../../store/store";
 import { Result } from "../../types/global.types";
 import { findContainer } from "../find/find_container.util";
 import { createGridContainer } from "../create_grid_container/create_grid_container.util";
 
 export function replaceOldGrid(app: Application<HTMLCanvasElement>, memoGameData: Result) {
-    const { grid } = store.getState().game
+
+    const { game, screenSize } = store.getState()
+    console.log("before: ",app)
     const maskContainer = findContainer(app, "maskContainer")
-    const oldGridContainer = findContainer(app, "gridContainer")
+    const grap = maskContainer.getChildByName("maskGraph") as Graphics
     const newGridContainer = createGridContainer(memoGameData)
+    grap.height = 3* screenSize.symbol.fullSize
     
+    maskContainer.name = "maskContainer"
+
     maskContainer.getChildByName("gridContainer")?.destroy()
     maskContainer.addChild(newGridContainer)
+
+    console.log("after: ",app)
     return newGridContainer
 }
