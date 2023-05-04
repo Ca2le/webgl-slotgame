@@ -1,16 +1,16 @@
 
-import { ScreenSize } from "../types/global.types"
+import { GameDimensions, ScreenSize } from "../types/global.types"
 import { ScreenAction } from "../types/reducer.types"
 
 
-const size = window.innerWidth / window.innerHeight
-const square = 120 * size
+const size = window.innerHeight / window.innerWidth
+const square = 150 * size
 
 const initialScreen: ScreenSize = {
 
     max: {
-        width: 7 * square,
-        height: 5 * square
+        width: (window.innerWidth / 10) * 7,
+        height: (window.innerWidth / 10) * 6 * GameDimensions.aspectRatio
     },
     gameContainer: {
         width: 7 * square,
@@ -41,13 +41,15 @@ export function screenSize(state: ScreenSize = initialScreen, action: ScreenActi
 
     switch (action.type) {
         case "UPDATE_SCREEN": {
-            const newSquare = action.payload * 120
-            const width = newSquare * 7;
-            const height = newSquare * 5;
+            const height = (action.payload.width / 10) * 6 * GameDimensions.aspectRatio
+            const width = (action.payload.width / 10) * 7 
             const max = { width, height }
+            console.log(max, "gameratio")
             const newSize = { ...state, max }
-          
             return newSize
+
+
+
         }
         default:
             return state

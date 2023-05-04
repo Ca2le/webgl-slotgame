@@ -38,10 +38,10 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
         case "resize": {
             gameContainer.width = screenSize.max.width
             gameContainer.height = screenSize.max.height
-            app.view.height = screenSize.max.height
-            app.view.width = screenSize.max.width
-            app.stage.height = screenSize.max.height
-            app.stage.width = screenSize.max.width
+            // app.view.height = screenSize.max.height
+            // app.view.width = screenSize.max.width
+            // app.stage.height = screenSize.max.height
+            // app.stage.width = screenSize.max.width
 
         }
         case "coins_remove": {
