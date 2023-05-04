@@ -5,13 +5,14 @@ import { addHitArea } from "../create_button/create_button.util";
 import { GameStatus } from "../../network/slot_simulator";
 import { GlowFilter } from "@pixi/filter-glow";
 
-type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_status" | "coins_added"
+type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_status" | "coins_added" | "resize"
 
 export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetchNewData?: () => Promise<GameStatus | undefined>) {
-    const { loading, autobet, gameEconomy } = store.getState()
+    const { loading, autobet, gameEconomy, screenSize } = store.getState()
     const { coins, bet, coinValue } = gameEconomy
     const { autoLoading, numbersOfBets } = autobet
     const gameContainer = app.stage.getChildByName("gameContainer") as Container<DisplayObject>
+    const maskContainer = gameContainer.getChildByName('maskContainer') as Container<DisplayObject>
     const UIContainer = gameContainer.getChildByName("UIContainer") as Container<DisplayObject>
     const rightContainer = UIContainer.getChildByName("rightContainer") as Container<DisplayObject>
     const centerContainer = UIContainer.getChildByName("centerContainer") as Container<DisplayObject>
@@ -32,6 +33,13 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
     }
 
     switch (input) {
+        case "resize": {
+            gameContainer.width = screenSize.max.width
+            gameContainer.height = screenSize.max.height
+
+            console.log(screenSize)
+
+        }
         case "coins_remove": {
             update_coins()
             break

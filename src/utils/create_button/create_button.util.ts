@@ -4,7 +4,7 @@ import { store } from "../../store/store";
 import { GlowFilter } from "@pixi/filter-glow";
 import { GameStatus } from "../../network/slot_simulator";
 import { gameController } from "../game_controller/game_controller.util";
-const { max, UI_, symbol } = store.getState().screenSize
+const { UI_, symbol } = store.getState().screenSize
 
 
 export function createCenterSprite(imgIcon: Assets) {

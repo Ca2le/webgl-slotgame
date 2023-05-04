@@ -12,8 +12,8 @@ interface WindowSize {
 
 export function useWindowSize(): WindowSize {
     const [windowSize, setWindowSize] = useState<WindowSize>({
-        width: undefined,
-        height: undefined,
+        width: 1050,
+        height: 750,
     });
 
     useEffect(() => {

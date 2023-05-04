@@ -5,8 +5,8 @@ import { store } from "../../store/store";
 import { createDarkGraph } from "../../components/game_canvas/game_canvas.component";
 
 export function createGridContainer(result: Result) {
-    const { symbol, grid, max, mask } = store.getState().screenSize
-    const xPos = (max.width - grid.width) / 2
+    const { symbol, grid, gameContainer, mask } = store.getState().screenSize
+    const xPos = (gameContainer.width - grid.width) / 2
     const yPos = -grid.height + (symbol.fullSize + mask.height)
     const gridContainer = new Container()
     gridContainer.name = 'gridContainer'
