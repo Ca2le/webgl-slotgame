@@ -39,18 +39,18 @@ export function Game() {
 
     useEffect(() => {
         if (width && height) {
-
+            const size = { width, height }
             // This dont work at mom, cues I have no method for rewriing all the assets.
-            const square = width / height
-            dispatch({ type: "UPDATE_SCREEN", payload: square })
+            const square = height / width
+            dispatch({ type: "UPDATE_SCREEN", payload: size })
         }
 
     }, [width, height])
 
-    return (<GameCanvas />
-        // <GameContainer>
+    return (
+        <GameContainer>
+            <GameCanvas />
 
-        /* <ControlBar /> */
-        // </GameContainer>
+        </GameContainer>
     );
 }
