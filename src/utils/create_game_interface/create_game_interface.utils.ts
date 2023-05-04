@@ -6,7 +6,7 @@ import { createSprite } from "../create_sprite/create_sprite.util";
 import { createText } from "../create_text/create_text.util";
 import { createBtn } from "../create_btn_hitpoint/create_btn_hitpoint.util";
 const { bet } = store.getState().gameEconomy
-const { max, UI_, symbol } = store.getState().screenSize
+const { gameContainer, UI_, symbol } = store.getState().screenSize
 const quaterSize = symbol.fullSize * 0.25
 const halfSize = symbol.fullSize * 0.5
 const oneSize = symbol.fullSize
@@ -16,7 +16,7 @@ const fourSize = symbol.fullSize * 4
 
 export function createUI(fetchNewData: () => Promise<GameStatus | undefined>, app: Application<HTMLCanvasElement>) {
 
-    const yPos = max.height - UI_.height
+    const yPos = gameContainer.height - UI_.height
     const UIContainer = createUIContainer("UIContainer", UI_.width, yPos)
     UIContainer.width = UI_.width
     const leftContainer = createUILeftContainer()

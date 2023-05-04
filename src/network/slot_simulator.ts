@@ -84,7 +84,6 @@ function checkPaylines(result: Result, bet: number) {
 
     gameStatus.totalPrice = gameStatus.totalPrice * bet
 
-    console.log(gameStatus, "win here!")
     return gameStatus
 }
 

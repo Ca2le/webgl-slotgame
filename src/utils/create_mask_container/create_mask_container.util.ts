@@ -2,21 +2,22 @@ import { Container, Graphics } from "pixi.js";
 import { store } from "../../store/store";
 
 export function createMaskContainer() {
-    const { max } = store.getState().screenSize
+    const { gameContainer } = store.getState().screenSize
     const maskGraph = createMask()
     const maskContainer = new Container()
-    maskContainer.height = max.height
-    maskContainer.width = max.width
+    maskContainer.height = gameContainer.height
+    maskContainer.width = gameContainer.width
     maskContainer.name = "maskContainer"
+    maskContainer.addChild(maskGraph)
     maskContainer.mask = maskGraph
-
+   
     return maskContainer
 }
 
 function createMask() {
-    const { max, mask } = store.getState().screenSize
-    const y = (max.height - mask.height) / 2
-    const x = (max.width - mask.width) / 2
+    const { gameContainer, mask } = store.getState().screenSize
+    const y = (gameContainer.height - mask.height) / 2
+    const x = (gameContainer.width - mask.width) / 2
     const graph = new Graphics();
     graph.height = mask.height
     graph.width = mask.width

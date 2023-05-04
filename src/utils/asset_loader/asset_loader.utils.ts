@@ -59,7 +59,6 @@ export async function loadAssets() {
    const asset_26_img = "./assets/BACKGROUND.png"
    const asset_28_img = "./assets/HAMMER.png"
    const asset_29_img = "./assets/PAYLINES.png"
-   console.log("how many times?")
    try {
 
   

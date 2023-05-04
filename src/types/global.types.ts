@@ -33,6 +33,10 @@ export interface ScreenSize {
         readonly width: number,
         readonly height: number
     },
+    gameContainer: {
+        readonly width: number,
+        readonly height: number
+    },
     readonly mask: {
         readonly width: number,
         readonly height: number

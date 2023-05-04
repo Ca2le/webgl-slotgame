@@ -9,8 +9,8 @@ export function replaceOldGrid(app: Application<HTMLCanvasElement>, memoGameData
     const maskContainer = findContainer(app, "maskContainer")
     const oldGridContainer = findContainer(app, "gridContainer")
     const newGridContainer = createGridContainer(memoGameData)
+    
+    maskContainer.getChildByName("gridContainer")?.destroy()
     maskContainer.addChild(newGridContainer)
-    maskContainer.removeChildAt(0)
- 
     return newGridContainer
 }

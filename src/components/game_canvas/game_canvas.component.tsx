@@ -19,6 +19,7 @@ import { startAutobet } from "../../utils/autobet/autobet.util";
 import { goldRainEmitter } from "../../utils/gold_rain_effect/gold_rain_effect";
 import { findContainer } from "../../utils/find/find_container.util";
 import { createBobsMsgContainer } from "../../utils/createBobsMsgContainer.util";
+import { Div } from "./game_canvas.styles";
 
 export interface PayLineObj {
     line: string,
@@ -26,7 +27,7 @@ export interface PayLineObj {
 }
 
 export function GameCanvas() {
-    console.log(window)
+
     const [bobsGreetingMsg, setBobsGreetingMsg] = useState(true)
     const { screenSize, game, gameEconomy, autobet, loading } = useSelector((state: RootState) => state)
     const { bet, coinValue } = gameEconomy
@@ -40,8 +41,8 @@ export function GameCanvas() {
         // All this does is creating, scaling and positioning the intitial game content. The heart of the app :D
         const gameContainer = createGameContainer()
         const bobsMsgContainer = createBobsMsgContainer()
-        const Darkness = createDarkGraph(screenSize.max.height, screenSize.max.width, 0.2, -1, "dark")
-        const BackgroundImg = createSprite("BACKGROUND", screenSize.max.width, screenSize.max.height)
+        const Darkness = createDarkGraph(screenSize.gameContainer.height, screenSize.gameContainer.width, 0.2, -1, "dark")
+        const BackgroundImg = createSprite("BACKGROUND", screenSize.gameContainer.width, screenSize.gameContainer.height)
         const UIContainer = createUI(fetchNewData, app)
         const maskContainer = createMaskContainer()
         const gridContainer = createGridContainer(game.grid)
@@ -59,6 +60,7 @@ export function GameCanvas() {
     useEffect(() => {
         const element = ref.current
         if (element) {
+            memorizedApp.resizeTo = element
             element.appendChild(memorizedApp.view)
             memorizedApp.start()
         }
@@ -99,11 +101,19 @@ export function GameCanvas() {
 
     useEffect(() => {
         updateUI(memorizedApp, "loading_status", fetchNewData);
-        console.log(loading)
+
     }, [loading.status, autobet.autoLoading])
 
-    return <div style={{ height: "100%", width: "auto" }} ref={ref} />
+    useEffect(() => {
+        console.log(memorizedApp)
+        updateUI(memorizedApp, "resize");
+
+    }, [screenSize])
+
+
+    return <Div width={screenSize.max.width} height={screenSize.max.height} ref={ref} />
 }
+
 
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
     const { totalPrice } = store.getState().game
@@ -132,6 +142,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
         payline.forEach((cords, i) => {
             const x = cords[0]
             const y = cords[1]
+           
             const reel = newGridContainer.children[x] as Container<DisplayObject>
             const symbol = reel.children[y] as Container<DisplayObject>
             const radiance = symbol.getChildByName("radianceContainer") as Container<DisplayObject>
@@ -177,7 +188,7 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
         }
     })
     oneSpin.start()
-  
+
 }
 
 export function activateAlphas(memoGameData: Result) {

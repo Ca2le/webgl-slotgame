@@ -3,7 +3,7 @@ import { createDarkGraph } from "../components/game_canvas/game_canvas.component
 import { store } from "../store/store";
 import { createSprite } from "./create_sprite/create_sprite.util";
 import { GlowFilter } from "@pixi/filter-glow";
-const { max, symbol } = store.getState().screenSize
+const { symbol, gameContainer } = store.getState().screenSize
 
 
 
@@ -30,10 +30,10 @@ export function  createBobsMsgContainer() {
 
     const bobsContainer = new Container()
     bobsContainer.name = "bobsContainer"
-    bobsContainer.height = max.height
-    bobsContainer.width = max.width
+    bobsContainer.height = gameContainer.height
+    bobsContainer.width = gameContainer.width
 
-    const graph = createDarkGraph(max.height, max.width, 0.90, 5, "dark")
+    const graph = createDarkGraph(gameContainer.height, gameContainer.width, 0.90, 5, "dark")
     bobsContainer.addChild(graph)
 
     const firstMsg = new Text("BOB'S BLACKSMITH", headerStyle);
