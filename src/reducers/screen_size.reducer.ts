@@ -9,8 +9,8 @@ const square = 150 * size
 const initialScreen: ScreenSize = {
 
     max: {
-        width: (window.innerWidth / 10) * 7,
-        height: (window.innerWidth / 10) * 6 * GameDimensions.aspectRatio
+        width: (window.innerWidth / 10) * 8,
+        height: (window.innerWidth / 10) * 7 * GameDimensions.aspectRatio
     },
     gameContainer: {
         width: 7 * square,
@@ -41,8 +41,8 @@ export function screenSize(state: ScreenSize = initialScreen, action: ScreenActi
 
     switch (action.type) {
         case "UPDATE_SCREEN": {
-            const height = (action.payload.width / 10) * 6 * GameDimensions.aspectRatio
-            const width = (action.payload.width / 10) * 7 
+            const height = (action.payload.width / 10) * 7 * GameDimensions.aspectRatio
+            const width = (action.payload.width / 10) * 8 
             const max = { width, height }
             console.log(max, "gameratio")
             const newSize = { ...state, max }
