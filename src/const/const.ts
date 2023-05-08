@@ -22,4 +22,3 @@ export const initialState = [
 
 export const __values: Value[] = ["TEN", "J", "Q", "K", "A", "WILD"]
 
-

@@ -1,4 +1,5 @@
-import { Application, Container, DisplayObject, Graphics, Sprite, Ticker, } from "pixi.js";
+import { Application, Container, DisplayObject, Graphics, Sprite, Texture, Ticker, utils, } from "pixi.js";
+import * as partical from 'pixi.js'
 import { useEffect, useMemo, useRef, useState, } from "react";
 import { useData } from "../../network/useData";
 import { createGridContainer } from "../../utils/create_grid_container/create_grid_container.util";
@@ -18,8 +19,12 @@ import { createSprite } from "../../utils/create_sprite/create_sprite.util";
 import { startAutobet } from "../../utils/autobet/autobet.util";
 import { goldRainEmitter } from "../../utils/gold_rain_effect/gold_rain_effect";
 import { findContainer } from "../../utils/find/find_container.util";
-import { createBobsMsgContainer } from "../../utils/createBobsMsgContainer.util";
-import { Div } from "./game_canvas.styles";
+import { CanvasContainer, Div } from "./game_canvas.styles";
+import { BobsMessage } from "../bobsmessage/bobsmessage.component";
+import { goldShower } from "../../utils/gold_shower/gold_shower.util";
+import { createGoldShower } from "../../utils/gold_shower/create_gold_shower.util";
+import { cleanGameContainer } from "../../utils/clean_game_container/clean_game_container.util";
+
 
 export interface PayLineObj {
     line: string,
@@ -27,7 +32,6 @@ export interface PayLineObj {
 }
 
 export function GameCanvas() {
-    const [initialRender, setInitialRender] = useState(true);
     const { screenSize, game, gameEconomy, autobet, loading } = useSelector((state: RootState) => state)
     const { bet, coinValue } = gameEconomy
     const [hasPayed, setHasPayed] = useState(false)
@@ -39,7 +43,6 @@ export function GameCanvas() {
         const app = new Application<HTMLCanvasElement>({ width: screenSize.max.width, height: screenSize.max.height, backgroundAlpha: 0 })
         // All this does is creating, scaling and positioning the intitial game content. The heart of the app :D
         const gameContainer = createGameContainer()
-        const bobsMsgContainer = createBobsMsgContainer()
         const Darkness = createDarkGraph(screenSize.gameContainer.height, screenSize.gameContainer.width, 0.2, -1, "dark")
         const BackgroundImg = createSprite("BACKGROUND", screenSize.gameContainer.width, screenSize.gameContainer.height)
         const UIContainer = createUI(fetchNewData, app)
@@ -51,7 +54,6 @@ export function GameCanvas() {
         gameContainer.addChild(Darkness)
         maskContainer.addChild(gridContainer)
         gameContainer.addChild(UIContainer)
-        gameContainer.addChild(bobsMsgContainer)
         app.stage.addChild(gameContainer)
         return app
     }, [])
@@ -62,7 +64,6 @@ export function GameCanvas() {
             memorizedApp.resizeTo = element
             element.appendChild(memorizedApp.view)
             memorizedApp.start()
-            console.log("Befire; ",memorizedApp)
         }
     }, [memorizedApp])
 
@@ -77,10 +78,10 @@ export function GameCanvas() {
 
     useEffect(() => {
         if (hasPayed) {
+            cleanGameContainer(memorizedApp)
             // spinOneTime(memorizedApp, memoGameData);
             spinOneTime(memorizedApp, memoGameData);
             setHasPayed(false)
-            console.log("ÄFTER; ",memorizedApp)
         }
     }, [hasPayed])
 
@@ -111,16 +112,33 @@ export function GameCanvas() {
     }, [screenSize])
 
 
-    return <Div width={screenSize.max.width} height={screenSize.max.height} ref={ref} />
+    return <CanvasContainer >
+        <Div width={screenSize.max.width} height={screenSize.max.height} ref={ref} >
+            <BobsMessage />
+        </Div>
+    </CanvasContainer>
 }
 
 
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
+
     const { totalPrice } = store.getState().game
     const gameContainer = findContainer(app, "gameContainer")
-    const goldSprite = createSprite("GOLD").texture
-    const emitter = goldRainEmitter(gameContainer, goldSprite)
-    emitter.emit = true
+    const darkness = findContainer(app, "darkness")
+    const goldTexture = utils.TextureCache[`./assets/GOLD.png`]
+    const gold = Texture.from('./GOLD.png')
+
+
+
+
+    let time = 0
+    const tick = new Ticker()
+    tick.add(() => {
+        time += 1
+    })
+    tick.start()
+
+
     let timerID
     BG_darknesEffect(app, false)
     let addAnimation = true
@@ -173,19 +191,20 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
     let speed = 20;
 
     const oneSpin = new Ticker()
-    oneSpin.add(() => {
+    oneSpin.add( () => {
 
         newGridContainer.y += speed;
-        console.log(newGridContainer.position)
         if (newGridContainer.position.y >= stopAt) {
             speed = 0
             if (paylines.length > 0) {
+                createGoldShower(app)
                 showPayline()
                 BG_darknesEffect(app, true)
                 activateAlphas(memoGameData)
             }
             store.dispatch({ type: "ADD_COINS", payload: totalPrice })
             store.dispatch({ type: "NOT_LOADING" })
+
             oneSpin.destroy()
         }
     })

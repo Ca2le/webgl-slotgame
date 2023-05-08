@@ -1,6 +1,7 @@
 import { Texture } from "pixi.js";
 import { Autobet, GameEconomy, LoadingStatus, ScreenSize } from "./global.types";
 import { GameStatus } from "../network/slot_simulator";
+import { BobsMsg } from "../reducers/bobsmsg.reducer";
 
 export type RootState = {
     game: GameStatus;
@@ -8,13 +9,16 @@ export type RootState = {
     gameEconomy: GameEconomy;
     autobet: Autobet;
     loading: LoadingStatus;
+    bobsMsg: BobsMsg;
 }
 
 export type GameAction = {
     type: string,
     payload: GameStatus
 }
-
+export type BobsMsgAction = {
+    type: string
+}
 export type ScreenAction = {
     type: string,
     payload: {

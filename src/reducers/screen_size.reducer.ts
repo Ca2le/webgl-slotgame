@@ -3,14 +3,15 @@ import { GameDimensions, ScreenSize } from "../types/global.types"
 import { ScreenAction } from "../types/reducer.types"
 
 
-const size = window.innerHeight / window.innerWidth
-const square = 150 * size
+// const size = window.innerHeight / window.innerWidth
+const square = 150 
 
 const initialScreen: ScreenSize = {
 
     max: {
-        width: (window.innerWidth / 10) * 8,
-        height: (window.innerWidth / 10) * 7 * GameDimensions.aspectRatio
+        height: square * 5 ,
+        width: square * 7
+       
     },
     gameContainer: {
         width: 7 * square,
@@ -38,13 +39,12 @@ const initialScreen: ScreenSize = {
 //((square / 10) * 8)
 
 export function screenSize(state: ScreenSize = initialScreen, action: ScreenAction) {
-
     switch (action.type) {
         case "UPDATE_SCREEN": {
-            const height = (action.payload.width / 10) * 7 * GameDimensions.aspectRatio
-            const width = (action.payload.width / 10) * 8 
+            const height = (action.payload.width / 10)* 5 
+            const width = (action.payload.width / 10) * 7 
             const max = { width, height }
-            console.log(max, "gameratio")
+
             const newSize = { ...state, max }
             return newSize
 

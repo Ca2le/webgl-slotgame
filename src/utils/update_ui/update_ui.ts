@@ -4,12 +4,13 @@ import { store } from "../../store/store";
 import { addHitArea } from "../create_button/create_button.util";
 import { GameStatus } from "../../network/slot_simulator";
 import { GlowFilter } from "@pixi/filter-glow";
+import { game } from "../../reducers/game.reducer";
 
 type Input = "coins_remove" | "current_coin_value" | "bet_status" | "loading_status" | "coins_added" | "resize"
 
 export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetchNewData?: () => Promise<GameStatus | undefined>) {
     const { loading, autobet, gameEconomy, screenSize } = store.getState()
-    
+
     const { coins, bet, coinValue } = gameEconomy
     const { autoLoading, numbersOfBets } = autobet
 
@@ -38,10 +39,10 @@ export function updateUI(app: Application<HTMLCanvasElement>, input: Input, fetc
         case "resize": {
             gameContainer.width = screenSize.max.width
             gameContainer.height = screenSize.max.height
-            // app.view.height = screenSize.max.height
-            // app.view.width = screenSize.max.width
-            // app.stage.height = screenSize.max.height
-            // app.stage.width = screenSize.max.width
+            app.view.height = screenSize.max.height
+            app.view.width = screenSize.max.width
+            app.screen.height = screenSize.max.height
+            app.screen.width = screenSize.max.width
 
         }
         case "coins_remove": {
