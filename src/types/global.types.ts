@@ -12,7 +12,7 @@ export enum Icons {
 }
 export type SimpleValue = "TEN" | "J" | "Q" | "K" | "A" | "WILD"
 export type Value = "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "TEN__" | "J__" | "Q__" | "K__" | "A__" | "SCATTER__" | "WILD__" | "BONUS__"
-export type Assets = "PAYLINES" | "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "BACKGROUND" | "ANVIL_1" | "ANVIL_2" | "SHIELD" | "SETTINGSDISPLAY" | "HAMMER" | "GOLD" | "DECREMENT" | "INCREMENT" | "BOARD" | "DISPLAY"
+export type Assets = "LAVA" | "GLASS" | "IRONFRAME" | "PAYLINES" | "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "BACKGROUND" | "ANVIL_1" | "ANVIL_2" | "SHIELD" | "SETTINGSDISPLAY" | "HAMMER" | "GOLD" | "DECREMENT" | "INCREMENT" | "BOARD" | "DISPLAY"
 export type Result = Value[][]
 
 export type SpriteGrid = Sprite[][]

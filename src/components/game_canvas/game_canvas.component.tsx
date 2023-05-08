@@ -119,17 +119,9 @@ export function GameCanvas() {
     </CanvasContainer>
 }
 
-
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
 
     const { totalPrice } = store.getState().game
-    const gameContainer = findContainer(app, "gameContainer")
-    const darkness = findContainer(app, "darkness")
-    const goldTexture = utils.TextureCache[`./assets/GOLD.png`]
-    const gold = Texture.from('./GOLD.png')
-
-
-
 
     let time = 0
     const tick = new Ticker()
@@ -170,7 +162,6 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
                     mask.rotation += rotationSpeed;
                     mask.scale.x = 1 + Math.sin(count) * 0.04;
                     mask.scale.y = 1 + Math.cos(count) * 0.04;
-
                 });
             }
         })
@@ -189,10 +180,8 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
     // change this later
     const stopAt = symbol.fullSize
     let speed = 20;
-
     const oneSpin = new Ticker()
     oneSpin.add( () => {
-
         newGridContainer.y += speed;
         if (newGridContainer.position.y >= stopAt) {
             speed = 0
@@ -204,12 +193,10 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
             }
             store.dispatch({ type: "ADD_COINS", payload: totalPrice })
             store.dispatch({ type: "NOT_LOADING" })
-
             oneSpin.destroy()
         }
     })
     oneSpin.start()
-
 }
 
 export function activateAlphas(memoGameData: Result) {

@@ -68,6 +68,9 @@ export async function loadAssets() {
    const asset_36_img = "./assets/GOLD_7.png"
    const asset_37_img = "./assets/GOLD_8.png"
    const asset_38_img = "./assets/GOLD_9.png"
+   const asset_39_img = "./assets/GLASS.png"
+   const asset_40_img = "./assets/IRONFRAME.png"
+   const asset_41_img = "./assets/LAVA.png"
 
    try {
 
@@ -109,8 +112,9 @@ export async function loadAssets() {
       await Assets.load<Texture>(asset_36_img);
       await Assets.load<Texture>(asset_37_img);
       await Assets.load<Texture>(asset_38_img);
-
-
+      await Assets.load<Texture>(asset_39_img);
+      await Assets.load<Texture>(asset_40_img);
+      await Assets.load<Texture>(asset_41_img);
       return true
 
    } catch (err) {

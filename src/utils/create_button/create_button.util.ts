@@ -1,4 +1,4 @@
-import { Container, Geometry, Graphics, Rectangle, Sprite, Text, TextStyle, utils } from "pixi.js";
+import { Container, DisplayObject, Geometry, Graphics, Rectangle, Sprite, Text, TextStyle, utils } from "pixi.js";
 import { Assets } from "../../types/global.types";
 import { store } from "../../store/store";
 import { GlowFilter } from "@pixi/filter-glow";
@@ -17,8 +17,6 @@ export function createCenterSprite(imgIcon: Assets) {
   sprite.eventMode = "static"
   sprite.alpha = 1;
   sprite.filters = [glow]
-  sprite.height = UI_.height
-  sprite.width = width
   return sprite
 }
 
@@ -32,7 +30,7 @@ export const textStyle = new TextStyle({
   dropShadowDistance: 2,
 })
 
-export function addHitArea(imgIcon: Assets, sprite: Sprite, fetchNewData: (bet?: number) => Promise<GameStatus | undefined>) {
+export function addHitArea(imgIcon: Assets, sprite: Sprite | Container<DisplayObject>, fetchNewData: (bet?: number) => Promise<GameStatus | undefined>) {
   const oneSquare = symbol.fullSize
   const hitContainer = new Container()
   hitContainer.name = `${imgIcon}_hitarea`
@@ -48,7 +46,7 @@ export function addHitArea(imgIcon: Assets, sprite: Sprite, fetchNewData: (bet?:
 
   if (imgIcon === "ANVIL_1") {
     const y = oneSquare * 0.2
-    const x = oneSquare * 0.5
+    const x = oneSquare * 0.3
     hitArea.position.x = x
     hitArea.position.y = y
     const autotxt = new Text("AUTO", textStyle);
@@ -63,28 +61,33 @@ export function addHitArea(imgIcon: Assets, sprite: Sprite, fetchNewData: (bet?:
     hitContainer.addChild(bettxt)
 
     hitArea.on('click', () => {
+      glowFilter.enabled = false
       store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 5 })
     })
     hitArea.on('tap', () => {
+      glowFilter.enabled = false
       store.dispatch({ type: "SET_AMOUNT_OF_BETS", bets: 5 })
     })
 
   }
   if (imgIcon === "ANVIL_2") {
-    const y = oneSquare * 0.2
-    const x = oneSquare * 1.4
+    const y = oneSquare * 0.20
+    const x = oneSquare * 1.25
     hitArea.position.x = x
     hitArea.position.y = y
     const spintxt = new Text("SPIN", textStyle);
-    const spinMargin = (hitArea.width - spintxt.width) / 2
-    spintxt.x = x + spinMargin
-    spintxt.y = y
+    const spinMarginX = (hitArea.width - spintxt.width) / 2
+    const spinMarginY = (hitArea.height - spintxt.height) / 2
+    spintxt.x = x + spinMarginX
+    spintxt.y = hitArea.y + spinMarginY
     hitContainer.addChild(spintxt)
 
     hitArea.on('click', () => {
+      glowFilter.enabled = false
       gameController(fetchNewData)
     })
     hitArea.on('tap', () => {
+      glowFilter.enabled = false
       gameController(fetchNewData)
     })
 

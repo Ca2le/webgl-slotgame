@@ -5,6 +5,7 @@ import { store } from "../../store/store";
 import { createSprite } from "../create_sprite/create_sprite.util";
 import { createText } from "../create_text/create_text.util";
 import { createBtn } from "../create_btn_hitpoint/create_btn_hitpoint.util";
+import { createSpinBtn } from "../create_spin_btn/create_spin_btn.util";
 const { bet } = store.getState().gameEconomy
 const { gameContainer, UI_, symbol } = store.getState().screenSize
 const quaterSize = symbol.fullSize * 0.25
@@ -22,11 +23,12 @@ export function createUI(fetchNewData: () => Promise<GameStatus | undefined>, ap
     const leftContainer = createUILeftContainer()
     const centerContainer = createUICenterContainer(fetchNewData)
     const rightContainer = createUIRightContainer()
-    centerContainer.position.x = oneSize + quaterSize + halfSize
-    rightContainer.position.x = fourSize + quaterSize
+
     UIContainer.addChild(leftContainer)
     UIContainer.addChild(centerContainer)
     UIContainer.addChild(rightContainer)
+    centerContainer.position.x = (UI_.width - centerContainer.width) / 2
+    rightContainer.position.x = fourSize + quaterSize
 
     return UIContainer
 }
@@ -35,7 +37,7 @@ export function createUIContainer(name: string, width = symbol.fullSize, y = 0) 
     const container = new Container()
     container.name = name
     container.width = width
-    container.height = UI_.height 
+    container.height = UI_.height
     container.position.y = y
     return container
 
@@ -45,16 +47,22 @@ export function createUICenterContainer(fetchNewData: () => Promise<GameStatus |
     const centerContainer = createUIContainer("centerContainer", threeSize)
     const autoSprite = createCenterSprite("ANVIL_1");
     const spinSprite = createCenterSprite("ANVIL_2");
+    const spinBtn = createSpinBtn()
+    console.log("spinbtn", spinBtn)
     const maxBetSprite = createCenterSprite("SHIELD");
     const autoHitArea = addHitArea("ANVIL_1", autoSprite, fetchNewData)
-    const spinHitArea = addHitArea("ANVIL_2", spinSprite, fetchNewData)
+    const spinHitArea = addHitArea("ANVIL_2", spinBtn, fetchNewData)
     const maxBetHitArea = addHitArea("SHIELD", maxBetSprite, fetchNewData)
     centerContainer.addChild(autoSprite)
     centerContainer.addChild(spinSprite)
     centerContainer.addChild(maxBetSprite)
+    centerContainer.addChild(spinBtn)
     centerContainer.addChild(autoHitArea)
     centerContainer.addChild(spinHitArea)
     centerContainer.addChild(maxBetHitArea)
+  
+    spinBtn.x = (threeSize - spinBtn.width) / 2
+    spinBtn.y = UI_.height * 0.1
     return centerContainer
 
 }
@@ -119,7 +127,7 @@ export function createUILeftContainer() {
 export function createUIRightContainer() {
     const { coins, coinValue } = store.getState().gameEconomy
     const btnSize = oneSize * 0.16
-    const rightContainer = createUIContainer("rightContainer", twoSize + (oneSize / 2))
+    const rightContainer = createUIContainer("rightContainer", twoSize)
 
     // display 1
     const coinValueContainer = createUIContainer("displayContainer", oneSize)
@@ -152,7 +160,7 @@ export function createUIRightContainer() {
     coinValueContainer.addChild(coinValueTxt)
     coinValueContainer.addChild(amountTxt)
 
-    coinValueContainer.position.x = halfSize
+    coinValueContainer.position.x = halfSize + quaterSize
 
 
     // display 2
@@ -167,13 +175,13 @@ export function createUIRightContainer() {
 
     goldCoinAmountTxt.y = goldCoinTxtY
     goldCoinAmountTxt.x = goldCoinTxtX
-    goldCoin.position.y = goldCoinY 
+    goldCoin.position.y = goldCoinY
     goldCoin.position.x = goldCoinX + halfDisplay
 
     goldCoinContainer.addChild(goldCoinDisplay)
     goldCoinContainer.addChild(goldCoin)
     goldCoinContainer.addChild(goldCoinAmountTxt)
-    goldCoinContainer.position.x = halfSize + oneSize
+    goldCoinContainer.position.x = oneSize + halfSize + quaterSize
 
     rightContainer.addChild(coinValueContainer)
     rightContainer.addChild(goldCoinContainer)
