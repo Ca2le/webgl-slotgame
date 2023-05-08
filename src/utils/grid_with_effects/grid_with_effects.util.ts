@@ -7,7 +7,6 @@ import { createGridContainer } from "../create_grid_container/create_grid_contai
 export function replaceOldGrid(app: Application<HTMLCanvasElement>, memoGameData: Result) {
 
     const { game, screenSize } = store.getState()
-    console.log("before: ",app)
     const maskContainer = findContainer(app, "maskContainer")
     const grap = maskContainer.getChildByName("maskGraph") as Graphics
     const newGridContainer = createGridContainer(memoGameData)
@@ -17,7 +16,5 @@ export function replaceOldGrid(app: Application<HTMLCanvasElement>, memoGameData
 
     maskContainer.getChildByName("gridContainer")?.destroy()
     maskContainer.addChild(newGridContainer)
-
-    console.log("after: ",app)
     return newGridContainer
 }

@@ -57,7 +57,7 @@ export interface ScreenSize {
 }
 
 export enum GameDimensions {
-    aspectRatio = 8 / 10,
+    aspectRatio = 7 / 10,
     maxWidth = 1000,
     maxHeight = maxWidth * aspectRatio,
     minWidth = 500,

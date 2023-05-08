@@ -58,7 +58,17 @@ export async function loadAssets() {
    const asset_25_img = "./assets/GOLD.png"
    const asset_26_img = "./assets/BACKGROUND.png"
    const asset_28_img = "./assets/HAMMER.png"
-   const asset_29_img = "./assets/PAYLINES.png"
+   const asset_29_img = "./assets/GOLD_0.png"
+   const asset_30_img = "./assets/GOLD_1.png"
+   const asset_31_img = "./assets/GOLD_2.png"
+   const asset_32_img = "./assets/GOLD_3.png"
+   const asset_33_img = "./assets/GOLD_4.png"
+   const asset_34_img = "./assets/GOLD_5.png"
+   const asset_35_img = "./assets/GOLD_6.png"
+   const asset_36_img = "./assets/GOLD_7.png"
+   const asset_37_img = "./assets/GOLD_8.png"
+   const asset_38_img = "./assets/GOLD_9.png"
+
    try {
 
   
@@ -90,6 +100,16 @@ export async function loadAssets() {
       await Assets.load<Texture>(asset_27_img);
       await Assets.load<Texture>(asset_28_img);
       await Assets.load<Texture>(asset_29_img);
+      await Assets.load<Texture>(asset_30_img);
+      await Assets.load<Texture>(asset_31_img);
+      await Assets.load<Texture>(asset_32_img);
+      await Assets.load<Texture>(asset_33_img);
+      await Assets.load<Texture>(asset_34_img);
+      await Assets.load<Texture>(asset_35_img);
+      await Assets.load<Texture>(asset_36_img);
+      await Assets.load<Texture>(asset_37_img);
+      await Assets.load<Texture>(asset_38_img);
+
 
       return true
 

@@ -4,6 +4,7 @@ import { screenSize } from "../reducers/screen_size.reducer";
 import { gameEconomy } from "../reducers/game_economy.reducer";
 import { autobet } from "../reducers/autobet.reducer";
 import { loading } from "../reducers/loading.reducer";
+import { bobsMsg } from "../reducers/bobsmsg.reducer";
 
 
 export const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
     screenSize,
     gameEconomy,
     autobet,
-    loading
+    loading,
+    bobsMsg
     // settings: settings.reducer,
 })
