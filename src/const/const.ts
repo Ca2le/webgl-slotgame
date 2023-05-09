@@ -22,3 +22,4 @@ export const initialState = [
 
 export const __values: Value[] = ["TEN", "J", "Q", "K", "A", "WILD"]
 
+export const colorCode: string[] = ["#F7931E","#ED1C24","#39B54A","#D9E021","#3FA9F5","#00FFFF","#0000FF","#9E005D","#FF7BAC"]

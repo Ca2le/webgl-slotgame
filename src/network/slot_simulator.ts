@@ -44,16 +44,24 @@ function checkPaylines(result: Result, bet: number) {
         winningSymbol: [],
         totalPrice: 0,
     }
-
-    const payLine1 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]]
-    const payLine2 = [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1]]
-    const payLine3 = [[0, 2], [1, 2], [2, 2], [3, 2], [4, 2]]
-    const payLine4 = [[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]]
-    const payLine5 = [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]]
-    const payLine6 = [[0, 0], [1, 0], [2, 2], [3, 0], [4, 0]]
-    const payLine7 = [[0, 2], [1, 2], [2, 0], [3, 2], [4, 2]]
-    const payLine8 = [[0, 0], [1, 2], [2, 1], [3, 2], [4, 2]]
-    const payLine9 = [[0, 0], [1, 0], [2, 1], [3, 0], [4, 0]]
+    const payLine1 = [[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]]
+    const payLine2 = [[0, 0], [1, 0], [2, 1], [3, 0], [4, 0]]
+    const payLine3 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]]
+    const payLine4 = [[0, 0], [1, 0], [2, 2], [3, 0], [4, 0]]
+    const payLine5 = [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1]]
+    const payLine6 = [[0, 2], [1, 2], [2, 0], [3, 2], [4, 2]]
+    const payLine7 = [[0, 2], [1, 2], [2, 2], [3, 2], [4, 2]]
+    const payLine8 = [[0, 2], [1, 2], [2, 1], [3, 2], [4, 2]]
+    const payLine9 = [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]]
+    // const payLine1 = [[0, 0], [1, 0], [2, 0], [3, 0], [4, 0]]
+    // const payLine2 = [[0, 1], [1, 1], [2, 1], [3, 1], [4, 1]]
+    // const payLine3 = [[0, 2], [1, 2], [2, 2], [3, 2], [4, 2]]
+    // const payLine4 = [[0, 0], [1, 1], [2, 2], [3, 1], [4, 0]]
+    // const payLine5 = [[0, 2], [1, 1], [2, 0], [3, 1], [4, 2]]
+    // const payLine6 = [[0, 0], [1, 0], [2, 2], [3, 0], [4, 0]]
+    // const payLine7 = [[0, 2], [1, 2], [2, 0], [3, 2], [4, 2]]
+    // const payLine8 = [[0, 0], [1, 2], [2, 1], [3, 2], [4, 2]]
+    // const payLine9 = [[0, 0], [1, 0], [2, 1], [3, 0], [4, 0]]
 
     const payLines = [payLine1, payLine2, payLine3, payLine4, payLine5, payLine6, payLine7, payLine8, payLine9]
 

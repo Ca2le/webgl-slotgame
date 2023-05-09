@@ -10,7 +10,7 @@ export function createMaskContainer() {
     maskContainer.name = "maskContainer"
     maskContainer.addChild(maskGraph)
     maskContainer.mask = maskGraph
-   
+   maskContainer.zIndex = 1
     return maskContainer
 }
 

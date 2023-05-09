@@ -12,14 +12,14 @@ export function createGridContainer(result: Result) {
     gridContainer.name = 'gridContainer'
     gridContainer.position.y = yPos
     gridContainer.position.x = xPos
-   
+
     result.forEach((reel, x) => {
         const reelContainer = new Container()
         reelContainer.name = "reelContainer"
         reel.forEach((item, y) => {
             const spriteContainer = createSpriteContainer(x, y)
             const sprite = createSpriteSymbol(item)
-            const border = createSpriteBorder()
+            const border = createSpriteBorder("red")
             const radianceContainer = createRadianceContainer(item)
             const darknessContainer = createDarkGraph(symbol.fullSize, symbol.fullSize, 0, -1, "light")
             spriteContainer.addChild(darknessContainer)
@@ -38,7 +38,7 @@ export function createGridContainer(result: Result) {
 
         })
         gridContainer.addChild(reelContainer)
-        
+
     })
     gridContainer.height = grid.height
     return gridContainer
@@ -63,15 +63,14 @@ function createSpriteSymbol(imgName: Value) {
     return sprite
 }
 
-export function createSpriteBorder() {
+export function createSpriteBorder(colorCode: string) {
     const { graphSize, fullSize } = store.getState().screenSize.symbol
     const border = new Graphics();
-    border.height = graphSize
-    border.width = graphSize
-    const margin = (fullSize - graphSize) / 2
+    const size = graphSize * 0.96
+    const margin = (fullSize - size) / 2
     border.name = "border"
-    border.beginFill("blue");
-    border.drawRect(margin, margin, graphSize, graphSize);
+    border.beginFill(colorCode);
+    border.drawRect(margin, margin, size, size);
     border.endFill();
     border.zIndex = 1;
     border.visible = false
