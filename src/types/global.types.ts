@@ -12,7 +12,7 @@ export enum Icons {
 }
 export type SimpleValue = "TEN" | "J" | "Q" | "K" | "A" | "WILD"
 export type Value = "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "TEN__" | "J__" | "Q__" | "K__" | "A__" | "SCATTER__" | "WILD__" | "BONUS__"
-export type Assets = "LAVA" | "GLASS" | "IRONFRAME" | "PAYLINES" | "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "BACKGROUND" | "ANVIL_1" | "ANVIL_2" | "SHIELD" | "SETTINGSDISPLAY" | "HAMMER" | "GOLD" | "DECREMENT" | "INCREMENT" | "BOARD" | "DISPLAY"
+export type Assets = "NUMBER_1" |"NUMBER_2" |"NUMBER_3" |"NUMBER_4" |"NUMBER_5" |"NUMBER_6" |"NUMBER_7" |"NUMBER_8" |"NUMBER_9" | "LINE_1" | "LINE_2" | "LINE_3" |"LINE_4" |"LINE_5" |"LINE_6" |"LINE_7" |"LINE_8" |"LINE_9" | "LAVA" | "GLASS" | "IRONFRAME" | "PAYLINES" | "TEN" | "J" | "Q" | "K" | "A" | "SCATTER" | "WILD" | "BONUS" | "BACKGROUND" | "ANVIL_1" | "ANVIL_2" | "SHIELD" | "SETTINGSDISPLAY" | "HAMMER" | "GOLD" | "DECREMENT" | "INCREMENT" | "BOARD" | "DISPLAY"
 export type Result = Value[][]
 
 export type SpriteGrid = Sprite[][]

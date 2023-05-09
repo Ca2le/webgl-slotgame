@@ -12,7 +12,7 @@ export async function createGoldShower(app: Application<HTMLCanvasElement>) {
     gameContainer.addChild(shower1)
     gameContainer.addChild(shower3)
     await setTimeout((() => {
-        gameContainer.addChild(shower3)
+        gameContainer.addChild(shower2)
         gameContainer.addChild(shower4)
     }), 100)
 

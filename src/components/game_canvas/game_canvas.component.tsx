@@ -1,5 +1,4 @@
-import { Application, Container, DisplayObject, Graphics, Sprite, Texture, Ticker, utils, } from "pixi.js";
-import * as partical from 'pixi.js'
+import { Application, Container, DisplayObject, Graphics, Sprite, Ticker } from "pixi.js";
 import { useEffect, useMemo, useRef, useState, } from "react";
 import { useData } from "../../network/useData";
 import { createGridContainer } from "../../utils/create_grid_container/create_grid_container.util";
@@ -12,18 +11,17 @@ import { createMaskContainer } from "../../utils/create_mask_container/create_ma
 import { updateUI } from "../../utils/update_ui/update_ui";
 import { replaceOldGrid } from "../../utils/grid_with_effects/grid_with_effects.util";
 import { Result } from "../../types/global.types";
-
 import { BG_darknesEffect } from "../../utils/bg_darkness_effects/bg_darkness_effects.util";
 import { lightEffects } from "../../utils/light_effects/light_effects.util";
 import { createSprite } from "../../utils/create_sprite/create_sprite.util";
 import { startAutobet } from "../../utils/autobet/autobet.util";
-import { goldRainEmitter } from "../../utils/gold_rain_effect/gold_rain_effect";
-import { findContainer } from "../../utils/find/find_container.util";
 import { CanvasContainer, Div } from "./game_canvas.styles";
 import { BobsMessage } from "../bobsmessage/bobsmessage.component";
-import { goldShower } from "../../utils/gold_shower/gold_shower.util";
 import { createGoldShower } from "../../utils/gold_shower/create_gold_shower.util";
 import { cleanGameContainer } from "../../utils/clean_game_container/clean_game_container.util";
+import { createPaylineContainer } from "../../utils/create_payline_container/create_payline_container.util";
+import { showPaylines } from "../../utils/show_paylines/show_paylines.util";
+import { hidePaylines } from "../../utils/hide_paylines/hide_paylines.util";
 
 
 export interface PayLineObj {
@@ -48,12 +46,14 @@ export function GameCanvas() {
         const UIContainer = createUI(fetchNewData, app)
         const maskContainer = createMaskContainer()
         const gridContainer = createGridContainer(game.grid)
+        const paylineContainer = createPaylineContainer()
         BackgroundImg.zIndex = -2
         gameContainer.addChild(BackgroundImg)
         gameContainer.addChild(maskContainer)
         gameContainer.addChild(Darkness)
         maskContainer.addChild(gridContainer)
         gameContainer.addChild(UIContainer)
+        gameContainer.addChild(paylineContainer)
         app.stage.addChild(gameContainer)
         return app
     }, [])
@@ -79,6 +79,7 @@ export function GameCanvas() {
     useEffect(() => {
         if (hasPayed) {
             cleanGameContainer(memorizedApp)
+            hidePaylines(memorizedApp)
             // spinOneTime(memorizedApp, memoGameData);
             spinOneTime(memorizedApp, memoGameData);
             setHasPayed(false)
@@ -121,7 +122,8 @@ export function GameCanvas() {
 
 export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: Result) {
 
-    const { totalPrice } = store.getState().game
+    const { totalPrice, payLineNumber } = store.getState().game
+
 
     let time = 0
     const tick = new Ticker()
@@ -166,8 +168,8 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
             }
         })
         animation.start();
-        lightEffects(prevPayline, newGridContainer, "remove")
-        lightEffects(payline, newGridContainer, "add")
+        lightEffects(prevPayline, newGridContainer, payLineNumber, "remove")
+        lightEffects(payline, newGridContainer, payLineNumber, "add")
         paylineIndex++
         if (paylineIndex < paylines.length) {
             timerID = setTimeout(showPayline, 1500)
@@ -181,11 +183,12 @@ export function spinOneTime(app: Application<HTMLCanvasElement>, memoGameData: R
     const stopAt = symbol.fullSize
     let speed = 20;
     const oneSpin = new Ticker()
-    oneSpin.add( () => {
+    oneSpin.add(() => {
         newGridContainer.y += speed;
         if (newGridContainer.position.y >= stopAt) {
             speed = 0
             if (paylines.length > 0) {
+                showPaylines(app, payLineNumber)
                 createGoldShower(app)
                 showPayline()
                 BG_darknesEffect(app, true)

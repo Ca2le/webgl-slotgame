@@ -71,10 +71,26 @@ export async function loadAssets() {
    const asset_39_img = "./assets/GLASS.png"
    const asset_40_img = "./assets/IRONFRAME.png"
    const asset_41_img = "./assets/LAVA.png"
+   const asset_42_img = "./assets/LINE_1.png"
+   const asset_43_img = "./assets/LINE_2.png"
+   const asset_44_img = "./assets/LINE_3.png"
+   const asset_45_img = "./assets/LINE_4.png"
+   const asset_46_img = "./assets/LINE_5.png"
+   const asset_47_img = "./assets/LINE_6.png"
+   const asset_48_img = "./assets/LINE_7.png"
+   const asset_49_img = "./assets/LINE_8.png"
+   const asset_50_img = "./assets/LINE_9.png"
+   const asset_51_img = "./assets/NUMBER_1.png"
+   const asset_52_img = "./assets/NUMBER_2.png"
+   const asset_53_img = "./assets/NUMBER_3.png"
+   const asset_54_img = "./assets/NUMBER_4.png"
+   const asset_55_img = "./assets/NUMBER_5.png"
+   const asset_56_img = "./assets/NUMBER_6.png"
+   const asset_57_img = "./assets/NUMBER_7.png"
+   const asset_58_img = "./assets/NUMBER_8.png"
+   const asset_59_img = "./assets/NUMBER_9.png"
 
    try {
-
-  
       await Assets.load<Texture>(asset_1_img);
       await Assets.load<Texture>(asset_2_img);
       await Assets.load<Texture>(asset_3_img);
@@ -115,6 +131,24 @@ export async function loadAssets() {
       await Assets.load<Texture>(asset_39_img);
       await Assets.load<Texture>(asset_40_img);
       await Assets.load<Texture>(asset_41_img);
+      await Assets.load<Texture>(asset_42_img);
+      await Assets.load<Texture>(asset_43_img);
+      await Assets.load<Texture>(asset_44_img);
+      await Assets.load<Texture>(asset_45_img);
+      await Assets.load<Texture>(asset_46_img);
+      await Assets.load<Texture>(asset_47_img);
+      await Assets.load<Texture>(asset_48_img);
+      await Assets.load<Texture>(asset_49_img);
+      await Assets.load<Texture>(asset_50_img);
+      await Assets.load<Texture>(asset_51_img);
+      await Assets.load<Texture>(asset_52_img);
+      await Assets.load<Texture>(asset_53_img);
+      await Assets.load<Texture>(asset_54_img);
+      await Assets.load<Texture>(asset_55_img);
+      await Assets.load<Texture>(asset_56_img);
+      await Assets.load<Texture>(asset_57_img);
+      await Assets.load<Texture>(asset_58_img);
+      await Assets.load<Texture>(asset_59_img);
       return true
 
    } catch (err) {
